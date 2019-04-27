@@ -75,6 +75,11 @@ public class PlayerController : MonoBehaviour
         UpdateDangerView();
     }
 
+    public void ForceDisableInvulnerability()
+    {
+        _invulnerable = 0;
+    }
+
     private void UpdateDangerView()
     {
         dangerMeter.text = "Danger: " + _danger;

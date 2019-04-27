@@ -13,7 +13,9 @@ public class QteController : MonoBehaviour
     private QteAction? _actionThisTick;
 
     public Text qteButtonUI;
+    public Text qteTimeRemainingUI;
     public PlayerController playerController;
+    private float _timeRemainingForCurrentPrompt;
 
     public enum QteAction
     {
@@ -44,6 +46,18 @@ public class QteController : MonoBehaviour
             }
 
             _actionThisTick = null;
+        }
+        else
+        {
+            _timeRemainingForCurrentPrompt -= Time.deltaTime;
+            if (_timeRemainingForCurrentPrompt > 0)
+            {
+                qteTimeRemainingUI.text = new String('.', 1 + (int)Math.Floor(_timeRemainingForCurrentPrompt * 50));
+            }
+            else
+            {
+                PromptFailure();
+            }
         }
     }
 
@@ -88,15 +102,19 @@ public class QteController : MonoBehaviour
         {
             return;
         }
-        
+
+
         _isQteRunning = true;
-        GeneratePrompt();
         _qteRemaining = 2 + Random.Range(0, 5);
+        
+        playerController.ForceDisableInvulnerability();
+        GeneratePrompt();
     }
 
     private void GeneratePrompt()
     {
         _promptFor = NextPrompt();
+        _timeRemainingForCurrentPrompt = 1;
         ShowPrompt();
     }
 
@@ -122,6 +140,7 @@ public class QteController : MonoBehaviour
     private void HidePrompt()
     {
         qteButtonUI.text = "";
+        qteTimeRemainingUI.text = "";
     }
 
     private static QteAction NextPrompt()
