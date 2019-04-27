@@ -4,8 +4,11 @@ using UnityEngine.Experimental.Input;
 public class InputController : MonoBehaviour
 {
     private Controls controls;
+    
     public int jumpForce;
     public int dashForce;
+    public GamePhaseController gamePhaseController;
+    
     private float distanceToGround;
 
     public GameObject player;
@@ -22,8 +25,19 @@ public class InputController : MonoBehaviour
         distanceToGround = player.transform.GetComponent<Collider>().bounds.extents.y;
     }
 
+    private bool CanMove()
+    {
+        return gamePhaseController.GetCurrentPhase() == GamePhaseController.Phase.RUNNING ||
+               gamePhaseController.GetCurrentPhase() == GamePhaseController.Phase.QTE_END;
+    }
+
     private void Jump()
     {
+        if (!CanMove())
+        {
+            return;
+        }
+        
         if (IsGrounded())
         {
             player.transform.gameObject.GetComponent<Rigidbody>().AddForce(Vector3.up * jumpForce);
@@ -32,6 +46,11 @@ public class InputController : MonoBehaviour
 
     private void DashForward()
     {
+        if (!CanMove())
+        {
+            return;
+        }
+        
         if (IsGrounded())
         {
             player.transform.gameObject.GetComponent<Rigidbody>().AddForce(Vector3.right * dashForce);
