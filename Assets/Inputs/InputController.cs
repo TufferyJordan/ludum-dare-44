@@ -8,6 +8,7 @@ public class InputController : MonoBehaviour
     public int jumpForce;
     public int dashForce;
     public GamePhaseController gamePhaseController;
+    public QteController qteController;
     
     private float distanceToGround;
 
@@ -23,6 +24,11 @@ public class InputController : MonoBehaviour
         controls.PlayerControls.DashForward.performed += context => DashForward();
 
         distanceToGround = player.transform.GetComponent<Collider>().bounds.extents.y;
+
+        controls.QteControls.Up.performed += context => qteController.Input(QteController.QteAction.UP);
+        controls.QteControls.Down.performed += context => qteController.Input(QteController.QteAction.DOWN);
+        controls.QteControls.Left.performed += context => qteController.Input(QteController.QteAction.LEFT);
+        controls.QteControls.Right.performed += context => qteController.Input(QteController.QteAction.RIGHT);
     }
 
     private bool CanMove()

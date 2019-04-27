@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void IncrementDanger()
+    public void IncrementDanger()
     {
         if (_invulnerable > 0)
         {

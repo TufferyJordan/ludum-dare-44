@@ -80,6 +80,130 @@ public class Controls : IInputActionCollection
                     ""modifiers"": """"
                 }
             ]
+        },
+        {
+            ""name"": ""QteControls"",
+            ""id"": ""0749edb5-6b96-44a9-a077-2d6beab93d40"",
+            ""actions"": [
+                {
+                    ""name"": ""Up"",
+                    ""id"": ""72ead512-805d-4acd-8f7d-adfd239344bb"",
+                    ""expectedControlLayout"": """",
+                    ""continuous"": false,
+                    ""passThrough"": false,
+                    ""initialStateCheck"": false,
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""bindings"": []
+                },
+                {
+                    ""name"": ""Down"",
+                    ""id"": ""5259a65c-e97d-4097-8478-747aea269258"",
+                    ""expectedControlLayout"": """",
+                    ""continuous"": false,
+                    ""passThrough"": false,
+                    ""initialStateCheck"": false,
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""bindings"": []
+                },
+                {
+                    ""name"": ""Left"",
+                    ""id"": ""726043eb-0d3e-4cba-8b89-a8dec9c995e1"",
+                    ""expectedControlLayout"": """",
+                    ""continuous"": false,
+                    ""passThrough"": false,
+                    ""initialStateCheck"": false,
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""bindings"": []
+                },
+                {
+                    ""name"": ""Right"",
+                    ""id"": ""25459d43-f91d-486a-aa36-6e31ac0375b1"",
+                    ""expectedControlLayout"": """",
+                    ""continuous"": false,
+                    ""passThrough"": false,
+                    ""initialStateCheck"": false,
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""bindings"": []
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""e0404059-5677-46ba-9c6f-87fb435e27a4"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Up"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false,
+                    ""modifiers"": """"
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d8f9ff84-76ab-495c-8f5f-110f452f01f1"",
+                    ""path"": ""<Keyboard>/z"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Up"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false,
+                    ""modifiers"": """"
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3d378b37-e64c-4b7b-93bf-a1934b700028"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Down"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false,
+                    ""modifiers"": """"
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""477c71fd-b5e8-4d09-9191-c962e90bc018"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Left"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false,
+                    ""modifiers"": """"
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""23c4e54b-7ca6-40c6-82ae-60ab217d213b"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Left"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false,
+                    ""modifiers"": """"
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6e4607e8-a0b6-4080-9bfc-3021312f2f1e"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Right"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false,
+                    ""modifiers"": """"
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -88,6 +212,12 @@ public class Controls : IInputActionCollection
         m_PlayerControls = asset.GetActionMap("PlayerControls");
         m_PlayerControls_Jump = m_PlayerControls.GetAction("Jump");
         m_PlayerControls_DashForward = m_PlayerControls.GetAction("DashForward");
+        // QteControls
+        m_QteControls = asset.GetActionMap("QteControls");
+        m_QteControls_Up = m_QteControls.GetAction("Up");
+        m_QteControls_Down = m_QteControls.GetAction("Down");
+        m_QteControls_Left = m_QteControls.GetAction("Left");
+        m_QteControls_Right = m_QteControls.GetAction("Right");
     }
     ~Controls()
     {
@@ -174,9 +304,79 @@ public class Controls : IInputActionCollection
             return new PlayerControlsActions(this);
         }
     }
+    // QteControls
+    private InputActionMap m_QteControls;
+    private IQteControlsActions m_QteControlsActionsCallbackInterface;
+    private InputAction m_QteControls_Up;
+    private InputAction m_QteControls_Down;
+    private InputAction m_QteControls_Left;
+    private InputAction m_QteControls_Right;
+    public struct QteControlsActions
+    {
+        private Controls m_Wrapper;
+        public QteControlsActions(Controls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Up { get { return m_Wrapper.m_QteControls_Up; } }
+        public InputAction @Down { get { return m_Wrapper.m_QteControls_Down; } }
+        public InputAction @Left { get { return m_Wrapper.m_QteControls_Left; } }
+        public InputAction @Right { get { return m_Wrapper.m_QteControls_Right; } }
+        public InputActionMap Get() { return m_Wrapper.m_QteControls; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled { get { return Get().enabled; } }
+        public InputActionMap Clone() { return Get().Clone(); }
+        public static implicit operator InputActionMap(QteControlsActions set) { return set.Get(); }
+        public void SetCallbacks(IQteControlsActions instance)
+        {
+            if (m_Wrapper.m_QteControlsActionsCallbackInterface != null)
+            {
+                Up.started -= m_Wrapper.m_QteControlsActionsCallbackInterface.OnUp;
+                Up.performed -= m_Wrapper.m_QteControlsActionsCallbackInterface.OnUp;
+                Up.cancelled -= m_Wrapper.m_QteControlsActionsCallbackInterface.OnUp;
+                Down.started -= m_Wrapper.m_QteControlsActionsCallbackInterface.OnDown;
+                Down.performed -= m_Wrapper.m_QteControlsActionsCallbackInterface.OnDown;
+                Down.cancelled -= m_Wrapper.m_QteControlsActionsCallbackInterface.OnDown;
+                Left.started -= m_Wrapper.m_QteControlsActionsCallbackInterface.OnLeft;
+                Left.performed -= m_Wrapper.m_QteControlsActionsCallbackInterface.OnLeft;
+                Left.cancelled -= m_Wrapper.m_QteControlsActionsCallbackInterface.OnLeft;
+                Right.started -= m_Wrapper.m_QteControlsActionsCallbackInterface.OnRight;
+                Right.performed -= m_Wrapper.m_QteControlsActionsCallbackInterface.OnRight;
+                Right.cancelled -= m_Wrapper.m_QteControlsActionsCallbackInterface.OnRight;
+            }
+            m_Wrapper.m_QteControlsActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                Up.started += instance.OnUp;
+                Up.performed += instance.OnUp;
+                Up.cancelled += instance.OnUp;
+                Down.started += instance.OnDown;
+                Down.performed += instance.OnDown;
+                Down.cancelled += instance.OnDown;
+                Left.started += instance.OnLeft;
+                Left.performed += instance.OnLeft;
+                Left.cancelled += instance.OnLeft;
+                Right.started += instance.OnRight;
+                Right.performed += instance.OnRight;
+                Right.cancelled += instance.OnRight;
+            }
+        }
+    }
+    public QteControlsActions @QteControls
+    {
+        get
+        {
+            return new QteControlsActions(this);
+        }
+    }
     public interface IPlayerControlsActions
     {
         void OnJump(InputAction.CallbackContext context);
         void OnDashForward(InputAction.CallbackContext context);
+    }
+    public interface IQteControlsActions
+    {
+        void OnUp(InputAction.CallbackContext context);
+        void OnDown(InputAction.CallbackContext context);
+        void OnLeft(InputAction.CallbackContext context);
+        void OnRight(InputAction.CallbackContext context);
     }
 }

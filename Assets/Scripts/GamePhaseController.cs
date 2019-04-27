@@ -8,9 +8,9 @@ public class GamePhaseController : MonoBehaviour
     private const double QteTempTimeLimit = 1D;
 
     public SpawnerPlatform spawnerPlatform;
+    public QteController qteController;
     
     private Phase _currentPhase;
-    private float _timeSpentInQte;
 
     public enum Phase
     {
@@ -37,7 +37,7 @@ public class GamePhaseController : MonoBehaviour
 
             if (newPhase == Phase.QTE_ACTIVE)
             {
-                _timeSpentInQte = 0;
+                qteController.Begin();
             }
         }
     }
@@ -70,8 +70,7 @@ public class GamePhaseController : MonoBehaviour
                 }
                 break;
             case Phase.QTE_ACTIVE:
-                _timeSpentInQte += Time.deltaTime;
-                if (_timeSpentInQte > QteTempTimeLimit)
+                if (!qteController.IsQteRunning())
                 {
                     return Phase.QTE_END;
                 }
