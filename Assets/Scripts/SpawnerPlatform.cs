@@ -95,7 +95,7 @@ public class SpawnerPlatform : MonoBehaviour
     
     private void SpawnNextPlatform()
     {
-        var lastChild = transform.GetChild(transform.GetChildCount() - 1);
+        var lastChild = transform.GetChild(transform.childCount - 1);
 
         if (lastChild.CompareTag("qte"))
         {

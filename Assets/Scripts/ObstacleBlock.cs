@@ -26,7 +26,10 @@ public class ObstacleBlock : MonoBehaviour
     {
         foreach (var delete in _deleteOnDestroy)
         {
-            Destroy(delete.gameObject);
+            if(delete != null)
+            {
+                Destroy(delete.gameObject);
+            }
         }
     }
 }
