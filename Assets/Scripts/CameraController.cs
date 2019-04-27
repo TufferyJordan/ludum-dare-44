@@ -4,26 +4,30 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    public GameObject camera;
+    public GameObject player;
+    public SpawnerPlatform spawnerPlatform;
+    
     private Vector3 cameraOffset;
+    private Vector3 cameraQteOffset;
     private Vector3 cameraVelocity;
     
     void Start()
     {
         cameraVelocity = new Vector3();
-        cameraOffset = camera.transform.position - transform.position;
-        camera.transform.position = NextCameraPosition();
+        cameraOffset = transform.position - player.transform.position;
+        cameraQteOffset = cameraOffset - new Vector3(cameraOffset.x, 0, -3);
+        transform.position = CameraPositionOnPlayer();
     }
 
-    void Update()
+    void LateUpdate()
     {
-        camera.transform.position = MutateSmoothPosition();
+        transform.position = MutateSmoothPosition();
     }
 
     private Vector3 MutateSmoothPosition()
     {
         return Vector3.SmoothDamp(
-            camera.transform.position,
+            transform.position,
             NextCameraPosition(),
             ref cameraVelocity,
             0.4F,
@@ -34,6 +38,27 @@ public class CameraController : MonoBehaviour
 
     private Vector3 NextCameraPosition()
     {
-        return transform.position + cameraOffset;
+        var activePlatform = spawnerPlatform.FindActivePlatform();
+        if (activePlatform.CompareTag("qte"))
+        {
+            return activePlatform.transform.position + cameraQteOffset;
+        }
+        else
+        {
+            var platform = spawnerPlatform.FindNextPlatform();
+            if (platform.CompareTag("qte"))
+            {
+                return platform.transform.position + cameraQteOffset;
+            }
+            else
+            {
+                return CameraPositionOnPlayer();
+            }
+        }
+    }
+
+    private Vector3 CameraPositionOnPlayer()
+    {
+        return player.transform.position + cameraOffset;
     }
 }

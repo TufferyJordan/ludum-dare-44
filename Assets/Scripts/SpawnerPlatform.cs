@@ -8,33 +8,33 @@ public class SpawnerPlatform : MonoBehaviour
 {
     private const int PlatformLength = 8;
     private const int PlatformCountAhead = 5;
-    private const int MovementVelocity = 7;
-    
+
     public Object[] basicPlatform;
     public Object[] obstaclePlatform;
     public Object[] buildingPlatform;
+    
+    public GameObject player;
 
     private int _nextSpawnLocation;
-    private List<GameObject> _spawned;
     
     // Start is called before the first frame update
     void Start()
     {
         _nextSpawnLocation = -1;
         
-        _spawned = new List<GameObject>();
-
         while (_nextSpawnLocation < PlatformCountAhead)
         {
             var selectedPlatform = RandomPlatformOf(basicPlatform);
-            _spawned.Add(CreateNewPlatform(selectedPlatform, _nextSpawnLocation));
+            CreateNewPlatform(selectedPlatform, _nextSpawnLocation);
             _nextSpawnLocation++;
         }
     }
 
     private GameObject CreateNewPlatform(Object selectedPlatform, int location)
     {
-        return Instantiate(selectedPlatform, new Vector3(location * PlatformLength, 0, 0), Quaternion.identity) as GameObject;
+        var newPlatform = Instantiate(selectedPlatform, new Vector3(location * PlatformLength, 0, 0), Quaternion.identity) as GameObject;
+        newPlatform.transform.SetParent(this.transform);
+        return newPlatform;
     }
 
     private Object SelectRandomPlatform()
@@ -58,7 +58,6 @@ public class SpawnerPlatform : MonoBehaviour
 
     void Update()
     {
-        transform.position += new Vector3(MovementVelocity * Time.deltaTime, 0, 0);
         if (ShouldSpawnNewPlatform())
         {
             SpawnNextPlatform();
@@ -67,13 +66,43 @@ public class SpawnerPlatform : MonoBehaviour
 
     private bool ShouldSpawnNewPlatform()
     {
-        return transform.position.x - ((_nextSpawnLocation - PlatformCountAhead) * PlatformLength) > 0;
+        return player.transform.position.x - ((_nextSpawnLocation - PlatformCountAhead) * PlatformLength) > 0;
     }
     
     private void SpawnNextPlatform()
     {
         var selectedPlatform = SelectRandomPlatform();
-        _spawned.Add(CreateNewPlatform(selectedPlatform, _nextSpawnLocation));
+        CreateNewPlatform(selectedPlatform, _nextSpawnLocation);
         _nextSpawnLocation++;
+    }
+
+    public GameObject FindActivePlatform()
+    {
+        return FindPlatformUnder(player.transform.position.x);
+    }
+
+    public GameObject FindNextPlatform()
+    {
+        return FindPlatformUnder(player.transform.position.x + PlatformLength);
+    }
+
+    private GameObject FindPlatformUnder(float position)
+    {
+        foreach (Transform platform in transform)
+        {
+            var platformLeftmost = platform.position.x - PlatformLength / 2F;
+            if (platformLeftmost < position && position < (platformLeftmost + PlatformLength))
+            {
+                return platform.gameObject;
+            }
+        }
+
+        throw new IndexOutOfRangeException();
+    }
+
+    public float FindPlatformRelativePosition()
+    {
+        var playerLeftmost = (player.transform.position.x - PlatformLength / 2F);
+        return (playerLeftmost % PlatformLength) / (PlatformLength * 1F);
     }
 }
