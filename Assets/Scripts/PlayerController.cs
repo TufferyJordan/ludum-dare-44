@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,9 +14,12 @@ public class PlayerController : MonoBehaviour
     private Collider _collider;
     private Rigidbody _rigidbody;
     private int _danger;
+    private float _invulnerable;
+    private MeshRenderer _meshRenderer;
 
     void Start()
     {
+        _meshRenderer = GetComponent<MeshRenderer>();
         _collider = GetComponent<Collider>();
         _rigidbody = GetComponent<Rigidbody>();
         _danger = 0;
@@ -59,7 +63,13 @@ public class PlayerController : MonoBehaviour
 
     private void IncrementDanger()
     {
+        if (_invulnerable > 0)
+        {
+            return;
+        }
+        
         _danger++;
+        _invulnerable = 1.5f;
         
         // TODO danger view
         UpdateDangerView();
@@ -68,5 +78,20 @@ public class PlayerController : MonoBehaviour
     private void UpdateDangerView()
     {
         dangerMeter.text = "Danger: " + _danger;
+    }
+
+    private void Update()
+    {
+        _invulnerable -= Time.fixedDeltaTime;
+        if (_invulnerable > 0)
+        {
+            _meshRenderer.enabled = ((int)Math.Floor((_invulnerable * 10) % 2)) == 0;
+        }
+        else
+        {
+            if (!_meshRenderer.enabled) {
+                _meshRenderer.enabled = true;
+            }
+        }
     }
 }
