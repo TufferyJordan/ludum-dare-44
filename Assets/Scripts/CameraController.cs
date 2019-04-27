@@ -6,6 +6,7 @@ public class CameraController : MonoBehaviour
 {
     public GameObject player;
     public SpawnerPlatform spawnerPlatform;
+    public GamePhaseController gamePhaseController;
     
     private Vector3 cameraOffset;
     private Vector3 cameraQteOffset;
@@ -39,22 +40,26 @@ public class CameraController : MonoBehaviour
     private Vector3 NextCameraPosition()
     {
         var activePlatform = spawnerPlatform.FindActivePlatform();
-        if (activePlatform.CompareTag("qte"))
+        if (IsCurrentQteNotEnding(activePlatform))
         {
             return activePlatform.transform.position + cameraQteOffset;
         }
+        
+        var platform = spawnerPlatform.FindNextPlatform();
+        if (platform.CompareTag("qte"))
+        {
+            return platform.transform.position + cameraQteOffset;
+        }
         else
         {
-            var platform = spawnerPlatform.FindNextPlatform();
-            if (platform.CompareTag("qte"))
-            {
-                return platform.transform.position + cameraQteOffset;
-            }
-            else
-            {
-                return CameraPositionOnPlayer();
-            }
+            return CameraPositionOnPlayer();
         }
+    }
+
+    private bool IsCurrentQteNotEnding(GameObject activePlatform)
+    {
+        return activePlatform.CompareTag("qte") && (gamePhaseController.GetCurrentPhase() == GamePhaseController.Phase.QTE_START ||
+                                                    gamePhaseController.GetCurrentPhase() == GamePhaseController.Phase.QTE_ACTIVE);
     }
 
     private Vector3 CameraPositionOnPlayer()

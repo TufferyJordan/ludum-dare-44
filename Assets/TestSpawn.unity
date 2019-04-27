@@ -324,6 +324,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 251188138}
   spawnerPlatform: {fileID: 1976645784}
+  gamePhaseController: {fileID: 1368641193}
 --- !u!1 &973198876
 GameObject:
   m_ObjectHideFlags: 0
