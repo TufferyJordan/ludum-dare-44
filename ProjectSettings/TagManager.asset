@@ -6,6 +6,7 @@ TagManager:
   tags:
   - qte
   - normal
+  - prop_obstacle
   layers:
   - Default
   - TransparentFX
