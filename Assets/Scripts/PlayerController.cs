@@ -9,20 +9,23 @@ public class PlayerController : MonoBehaviour
     public GamePhaseController gamePhaseController;
 
     private Collider _collider;
+    private Rigidbody _rigidbody;
 
     void Start()
     {
         _collider = GetComponent<Collider>();
+        _rigidbody = GetComponent<Rigidbody>();
     }
 
-    void Update()
+    void FixedUpdate()
     {
         switch (gamePhaseController.GetCurrentPhase())
         {
             case GamePhaseController.Phase.QTE_START:
             case GamePhaseController.Phase.QTE_END:
             case GamePhaseController.Phase.RUNNING:
-                transform.position += new Vector3(MovementVelocity * Time.deltaTime, 0, 0);
+                var newPosition = _rigidbody.position + new Vector3(MovementVelocity * Time.fixedDeltaTime, 0, 0);
+                _rigidbody.MovePosition(newPosition);
                 break;
             case GamePhaseController.Phase.QTE_ACTIVE:
                 break;

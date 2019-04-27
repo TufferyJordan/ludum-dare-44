@@ -22,7 +22,7 @@ public class CameraController : MonoBehaviour
         transform.position = CameraPositionOnPlayer();
     }
 
-    void LateUpdate()
+    void FixedUpdate()
     {
         transform.position = MutateSmoothPosition();
     }
@@ -35,7 +35,7 @@ public class CameraController : MonoBehaviour
             ref cameraVelocity,
             0.4F,
             10F,
-            Time.deltaTime
+            Time.fixedDeltaTime
         );
     }
 
@@ -66,7 +66,7 @@ public class CameraController : MonoBehaviour
 
     private Vector3 CameraPositionOnPlayer()
     {
-        var playerPosition = player.transform.position;
+        var playerPosition = player.GetComponent<Rigidbody>().position;
         return new Vector3(playerPosition.x, initialPlayerYpos, playerPosition.z) + cameraOffset;
     }
 }
