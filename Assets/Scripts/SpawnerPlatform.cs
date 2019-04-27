@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
@@ -13,6 +14,9 @@ public class SpawnerPlatform : MonoBehaviour
     public Object[] obstaclePlatform;
     public Object[] buildingPlatform;
     
+    private Object[][] platforms;
+    private int[] platformWeights;
+
     public GameObject player;
 
     private int _nextSpawnLocation;
@@ -21,8 +25,10 @@ public class SpawnerPlatform : MonoBehaviour
     void Start()
     {
         _nextSpawnLocation = -1;
+        platforms = new[] {basicPlatform, obstaclePlatform, buildingPlatform};
+        platformWeights = new[] {1, 4, 2};
         
-        while (_nextSpawnLocation < PlatformCountAhead)
+        while (_nextSpawnLocation < (PlatformCountAhead - 1))
         {
             var selectedPlatform = RandomPlatformOf(basicPlatform);
             CreateNewPlatform(selectedPlatform, _nextSpawnLocation);
@@ -37,13 +43,31 @@ public class SpawnerPlatform : MonoBehaviour
         return newPlatform;
     }
 
-    private Object SelectRandomPlatform()
+    private Object WeightedRandomPlatform()
     {
-        var platforms = new[] {basicPlatform, obstaclePlatform, buildingPlatform};
-        var platformType = RandomIntRange(0, 3);
-        var currentPlatformType = platforms[platformType];
+        var platformType = RandomIntRange(0, platformWeights.Sum());
+        var selectedIndex = IndexedWeight(platformWeights, platformType);
+
+        var currentPlatformType = platforms[selectedIndex];
         var selectedPlatform = RandomPlatformOf(currentPlatformType);
         return selectedPlatform;
+    }
+
+    private static int IndexedWeight(int[] platformWeights, int platformType)
+    {
+        var sumWeights = 0;
+        var i = 0;
+        while (i < platformWeights.Length)
+        {
+            sumWeights += platformWeights[i];
+            if (platformType < sumWeights)
+            {
+                return i;
+            }
+            i++;
+        }
+
+        throw new IndexOutOfRangeException();
     }
 
     private static Object RandomPlatformOf(Object[] currentPlatformType)
@@ -71,8 +95,17 @@ public class SpawnerPlatform : MonoBehaviour
     
     private void SpawnNextPlatform()
     {
-        var selectedPlatform = SelectRandomPlatform();
-        CreateNewPlatform(selectedPlatform, _nextSpawnLocation);
+        var lastChild = transform.GetChild(transform.GetChildCount() - 1);
+
+        if (lastChild.CompareTag("qte"))
+        {
+            CreateNewPlatform(RandomPlatformOf(basicPlatform), _nextSpawnLocation);
+        }
+        else
+        {
+            CreateNewPlatform(WeightedRandomPlatform(), _nextSpawnLocation);
+        }
+
         _nextSpawnLocation++;
     }
 
