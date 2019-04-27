@@ -1,20 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
     private const int MovementVelocity = 7;
     
     public GamePhaseController gamePhaseController;
+    public Text dangerMeter; 
 
     private Collider _collider;
     private Rigidbody _rigidbody;
+    private int _danger;
 
     void Start()
     {
         _collider = GetComponent<Collider>();
         _rigidbody = GetComponent<Rigidbody>();
+        _danger = 0;
+        UpdateDangerView();
     }
 
     void FixedUpdate()
@@ -47,8 +52,21 @@ public class PlayerController : MonoBehaviour
         var obstacleProp = other.transform.GetComponent<ObstacleProp>();
         if (obstacleProp != null && !obstacleProp.IsAlreadyCollidedWithPlayer())
         {
-            Debug.Log("Collision!!!111111");
             obstacleProp.DoCollideWithPlayer(_collider);
+            IncrementDanger();
         }
+    }
+
+    private void IncrementDanger()
+    {
+        _danger++;
+        
+        // TODO danger view
+        UpdateDangerView();
+    }
+
+    private void UpdateDangerView()
+    {
+        dangerMeter.text = "Danger: " + _danger;
     }
 }
