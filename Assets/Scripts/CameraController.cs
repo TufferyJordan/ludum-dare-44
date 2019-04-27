@@ -11,10 +11,12 @@ public class CameraController : MonoBehaviour
     private Vector3 cameraOffset;
     private Vector3 cameraQteOffset;
     private Vector3 cameraVelocity;
+    private float initialPlayerYpos;
     
     void Start()
     {
         cameraVelocity = new Vector3();
+        initialPlayerYpos = player.transform.position.y;
         cameraOffset = transform.position - player.transform.position;
         cameraQteOffset = cameraOffset - new Vector3(cameraOffset.x, 0, -3);
         transform.position = CameraPositionOnPlayer();
@@ -64,6 +66,7 @@ public class CameraController : MonoBehaviour
 
     private Vector3 CameraPositionOnPlayer()
     {
-        return player.transform.position + cameraOffset;
+        var playerPosition = player.transform.position;
+        return new Vector3(playerPosition.x, initialPlayerYpos, playerPosition.z) + cameraOffset;
     }
 }
