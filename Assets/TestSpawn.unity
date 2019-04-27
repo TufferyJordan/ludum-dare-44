@@ -473,6 +473,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpForce: 235
   dashForce: 50
+  gamePhaseController: {fileID: 1368641193}
   player: {fileID: 251188138}
 --- !u!4 &541199811
 Transform:
