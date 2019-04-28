@@ -17,6 +17,8 @@ public class QteController : MonoBehaviour
     public PlayerController playerController;
     private float _timeRemainingForCurrentPrompt;
 
+    public GameObject notification;
+
     public enum QteAction
     {
         UP, DOWN, LEFT, RIGHT
@@ -67,6 +69,7 @@ public class QteController : MonoBehaviour
         if (_qteRemaining <= 0)
         {
             End();
+            ShowBountyNotification();
         }
         else
         {
@@ -151,5 +154,20 @@ public class QteController : MonoBehaviour
 
     public bool IsQteRunning() {
         return _isQteRunning;
+    }
+
+    private void ShowBountyNotification()
+    {
+        notification.SetActive(true);
+        notification.GetComponent<UINotification>().BountyRise(1000);
+        StartCoroutine(HideBounty(2.0f));
+    }
+
+    private IEnumerator HideBounty(float waitTime)
+    {
+        // suspend execution for 2 seconds
+        yield return new WaitForSeconds(waitTime);
+        notification.SetActive(false);
+        Debug.Log("HELLO");
     }
 }
