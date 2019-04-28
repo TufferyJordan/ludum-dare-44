@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 4528351926807716929}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 8, y: 0, z: 0}
-  m_LocalScale: {x: 8, y: 1, z: 1}
+  m_LocalScale: {x: 8, y: 1, z: 4}
   m_Children:
   - {fileID: 8634082794538785739}
   m_Father: {fileID: 0}
@@ -50,7 +50,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4528351926807716929}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -105,6 +105,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc19643e1d168361ebc2fbac932376d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  props:
+  - {fileID: 1948511064677329068, guid: 9c8653a49948c05d5806bde493e4cfcd, type: 3}
 --- !u!1 &5609670884957208679
 GameObject:
   m_ObjectHideFlags: 0
@@ -125,7 +127,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8634082794538785739
 Transform:
   m_ObjectHideFlags: 0
