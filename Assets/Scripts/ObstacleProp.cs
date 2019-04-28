@@ -39,7 +39,7 @@ public class ObstacleProp : MonoBehaviour
         _rigidbody.AddForce(new Vector3(4, 1, 1) * _rigidbody.mass * 100);
         _rigidbody.AddTorque(new Vector3(RandomValue(), RandomValue(), RandomValue()) * _rigidbody.mass);
 
-        if (player.CompareTag("player"))
+        if (player.CompareTag("Player"))
         {
             AudioManager.instance.HitMetal();
         }
