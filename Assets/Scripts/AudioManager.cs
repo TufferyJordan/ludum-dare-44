@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour
@@ -60,5 +61,12 @@ public class AudioManager : MonoBehaviour
                 s.source.Stop();
             }
         }
+    }
+
+    public IEnumerator PlayFor(String name, int seconds)
+    {
+        Play(name);
+        yield return new WaitForSeconds(seconds);
+        Stop(name);
     }
 }

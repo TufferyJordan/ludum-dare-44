@@ -50,3 +50,99 @@ MonoBehaviour:
     pitch: 1
     loop: 1
     source: {fileID: 0}
+  - name: running_cloth
+    clip: {fileID: 8300000, guid: a555bc6a915c84e148f74970e3b44313, type: 3}
+    volume: 0.3
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: coin_2
+    clip: {fileID: 8300000, guid: 8051134f7433e473a9f64c9d6a06dbbf, type: 3}
+    volume: 0.5
+    pitch: 2
+    loop: 1
+    source: {fileID: 0}
+  - name: coin_1
+    clip: {fileID: 8300000, guid: fb491c08aed8b4254bf078e4374f112f, type: 3}
+    volume: 0.5
+    pitch: 2
+    loop: 1
+    source: {fileID: 0}
+  - name: crowd_clapping
+    clip: {fileID: 8300000, guid: 31288379457db41a1b95140a92023d10, type: 3}
+    volume: 0.7
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: crowd_scream
+    clip: {fileID: 8300000, guid: 57ff8c7226c614809a07dcda7ef804c1, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: shock_garbage
+    clip: {fileID: 8300000, guid: b0088e1304e234bf580a4fd0846eb147, type: 3}
+    volume: 0.3
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: fight_man_1
+    clip: {fileID: 8300000, guid: bdec7ad16430e4d4f85db0714eda1f1f, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: fight_man_2
+    clip: {fileID: 8300000, guid: 1e6f5fdd9083d49c285075d5cf40f266, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: fight_man_3
+    clip: {fileID: 8300000, guid: aed48c2f10c6941f091e372c7ed2bed0, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: shock_metal
+    clip: {fileID: 8300000, guid: d06b3a11eae87446bb5c6930833405f3, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: running_step
+    clip: {fileID: 8300000, guid: f9ed3a01bbd694d249be16b4d13cd7ff, type: 3}
+    volume: 0.3
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: transition_sweep
+    clip: {fileID: 8300000, guid: c2e9983bea3244ec08d092ae058fafa3, type: 3}
+    volume: 0.3
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: break_wood
+    clip: {fileID: 8300000, guid: b8622017365104a38b9ce9b868f1ce82, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: shock_wood
+    clip: {fileID: 8300000, guid: 87f3caaab1ed746b9817e3360d9c673b, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: security_alarm_1
+    clip: {fileID: 8300000, guid: d0013d7262e7e4580b9fe7e58ddb31e4, type: 3}
+    volume: 0.7
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: shock_body_fall
+    clip: {fileID: 8300000, guid: fa701c7e9078f47409ad6b9b2829f5dc, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
