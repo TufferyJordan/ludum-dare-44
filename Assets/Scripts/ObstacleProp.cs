@@ -12,7 +12,6 @@ public class ObstacleProp : MonoBehaviour
 
     void Start()
     {
-        transform.position = transform.position + new Vector3(Random.Range(-2.5F, 2.5F), 0, 0);
         alreadyCollided = false;
         _colliders = GetComponents<Collider>();
         _rigidbody = GetComponent<Rigidbody>();

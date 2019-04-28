@@ -19,9 +19,9 @@ public class ObstacleBlock : MonoBehaviour
 
         var invert = Random.Range(0, 2) == 0 ? 0 : 180;
 
-        var spawn = FindSpawnPoint();
+        var spawn = FindSpawnPoint()+ new Vector3(Random.Range(-2.5F, 2.5F), 0, 0);
         var prop = Instantiate(randomObstacle, spawn, Quaternion.Euler(0, Random.Range(-35, 35) + invert, 0)) as GameObject;
-
+        
         _deleteOnDestroy.Add(prop.transform);
     }
 
