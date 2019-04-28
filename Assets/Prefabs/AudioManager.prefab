@@ -46,7 +46,7 @@ MonoBehaviour:
   sounds:
   - name: Running
     clip: {fileID: 8300000, guid: 3774e34ca694f4ce2b83d12ea93bf305, type: 3}
-    volume: 0.716
-    pitch: 0
+    volume: 0.7
+    pitch: 1
     loop: 1
     source: {fileID: 0}
