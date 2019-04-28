@@ -29,7 +29,7 @@ public class SpawnerPlatform : MonoBehaviour
     void Start()
     {
         _nextSpawnLocation = -1;
-        platforms = new[] {basicPlatform, obstaclePlatform, buildingPlatform};
+        platforms = new[] {basicPlatform, basicPlatform, buildingPlatform};
         bases = new[] {basicBase, obstacleBase, buildingBase};
         platformWeights = new[] {1, 4, 2};
         
@@ -42,7 +42,7 @@ public class SpawnerPlatform : MonoBehaviour
 
     private void CreateNewPlatform(Object selectedPlatform, Object selectedBase, int location)
     {
-        var newPlatform = Instantiate(selectedPlatform, new Vector3(location * PlatformLength, 0, 0), Quaternion.identity) as GameObject;
+        var newPlatform = Instantiate(selectedPlatform, new Vector3(location * PlatformLength, 0.5F, 0), Quaternion.identity) as GameObject;
         var newBase = Instantiate(selectedBase, new Vector3(location * PlatformLength, 0, 0), Quaternion.identity) as GameObject;
         newPlatform.transform.SetParent(newBase.transform);
         newBase.transform.SetParent(this.transform);

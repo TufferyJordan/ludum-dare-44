@@ -1,19 +1,40 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Object = UnityEngine.Object;
+using Random = UnityEngine.Random;
 
 public class ObstacleBlock : MonoBehaviour
 {
+    public Object[] props;
+    
     private List<Transform> _deleteOnDestroy;
     
     void Start()
     {
         _deleteOnDestroy = new List<Transform>();
         
-        foreach (Transform prop in transform)
+        var randomObstacle = props[Random.Range(0, props.Length)];
+
+        var invert = Random.Range(0, 2) == 0 ? 0 : 180;
+
+        var spawn = FindSpawnPoint()+ new Vector3(Random.Range(-2.5F, 2.5F), 0, 0);
+        var prop = Instantiate(randomObstacle, spawn, Quaternion.Euler(0, Random.Range(-35, 35) + invert, 0)) as GameObject;
+        
+        _deleteOnDestroy.Add(prop.transform);
+    }
+
+    private Vector3 FindSpawnPoint()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, Mathf.Infinity, 0))
         {
-            prop.SetParent(null);
-            _deleteOnDestroy.Add(prop);
+            return hit.point;
+        }
+        else
+        {
+            return transform.position + new Vector3(0, 1, 0);
         }
     }
 
