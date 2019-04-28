@@ -1127,6 +1127,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Notification
       objectReference: {fileID: 0}
+    - target: {fileID: 6686309685048409539, guid: 2076c17468d9c42e8aa8c4e3dde95952,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6686309685048409540, guid: 2076c17468d9c42e8aa8c4e3dde95952,
         type: 3}
       propertyPath: m_LocalPosition.x
