@@ -6,7 +6,9 @@ public class DestroyerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Destroy(collision.gameObject);
+        if (!collision.gameObject.CompareTag("opponent")) {
+            Destroy(collision.gameObject);
+        }
     }
 
     private void Update()

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class GameModifiers : MonoBehaviour
 {
-    private const int MaxDanger = 30;
+    private const int MaxDanger = 1;
     
     public Text dangerMeter; 
     
@@ -31,7 +31,7 @@ public class GameModifiers : MonoBehaviour
         ULTIMATE
     }
 
-    public bool GetDangerLevel()
+    public bool IsMaxDangerLevel()
     {
         return _danger == MaxDanger;
     } 

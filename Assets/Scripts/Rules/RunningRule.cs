@@ -29,9 +29,9 @@ public class RunningRule : MonoBehaviour
         }
 
         var obstacleProp = other.transform.GetComponent<ObstacleProp>();
-        if (obstacleProp != null && !obstacleProp.IsAlreadyCollidedWithPlayer())
+        if (obstacleProp != null && !obstacleProp.IsAlreadyCollided())
         {
-            obstacleProp.DoCollideWithPlayer(player);
+            obstacleProp.DoCollide(player, true);
             gameModifiers.TakeDamage(GameModifiers.DangerSource.OBSTACLE_COLLIDED);
         }
     }

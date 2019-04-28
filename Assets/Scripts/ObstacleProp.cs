@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class ObstacleProp : MonoBehaviour
 {
@@ -20,7 +22,7 @@ public class ObstacleProp : MonoBehaviour
     {
     }
 
-    public void DoCollideWithPlayer(Collider player)
+    public void DoCollide(Collider player, bool ignoreFutureCollisions)
     {
         if (alreadyCollided)
         {
@@ -28,7 +30,10 @@ public class ObstacleProp : MonoBehaviour
         }
         
         alreadyCollided = true;
-        Physics.IgnoreCollision(player, _collider, true);
+        if (ignoreFutureCollisions)
+        {
+            Physics.IgnoreCollision(player, _collider, true);
+        }
         _rigidbody.AddForce(new Vector3(4, 1, 1) * _rigidbody.mass * 100);
         _rigidbody.AddTorque(new Vector3(RandomValue(), RandomValue(), RandomValue())  * _rigidbody.mass);
     }
@@ -38,7 +43,7 @@ public class ObstacleProp : MonoBehaviour
         return Random.Range(-100, 100);
     }
 
-    public bool IsAlreadyCollidedWithPlayer()
+    public bool IsAlreadyCollided()
     {
         return alreadyCollided;
     }
