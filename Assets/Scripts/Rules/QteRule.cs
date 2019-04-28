@@ -187,6 +187,5 @@ public class QteRule : MonoBehaviour
         // suspend execution for 2 seconds
         yield return new WaitForSeconds(waitTime);
         notification.SetActive(false);
-        Debug.Log("HELLO");
     }
 }
