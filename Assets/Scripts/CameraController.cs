@@ -12,19 +12,25 @@ public class CameraController : MonoBehaviour
     private Vector3 cameraQteOffset;
     private Vector3 cameraVelocity;
     private float initialPlayerYpos;
+    private Quaternion cameraQteRotation;
+    private Quaternion cameraRotation;
+    float rotationVelocity = 0;
     
     void Start()
     {
         cameraVelocity = new Vector3();
         initialPlayerYpos = player.transform.position.y;
         cameraOffset = transform.position - player.transform.position;
-        cameraQteOffset = cameraOffset - new Vector3(cameraOffset.x, 0, -3);
+        cameraQteOffset = cameraOffset - new Vector3(cameraOffset.x + 4, 1, -5);
+//        cameraRotation = transform.rotation;
+//        cameraQteRotation = transform.rotation * Quaternion.Euler(0, 20, 0);
         transform.position = CameraPositionOnPlayer();
     }
 
     void FixedUpdate()
     {
         transform.position = MutateSmoothPosition();
+        MutateSmoothRotation();
     }
 
     private Vector3 MutateSmoothPosition()
@@ -33,12 +39,24 @@ public class CameraController : MonoBehaviour
             transform.position,
             NextCameraPosition(),
             ref cameraVelocity,
-            0.4F,
-            10F,
+            0.7F,
+            20F,
             Time.fixedDeltaTime
         );
     }
 
+    private void MutateSmoothRotation()
+    {
+        Vector3 eulerAngles = this.transform.rotation.eulerAngles;
+        eulerAngles.y = Mathf.SmoothDampAngle(
+            eulerAngles.y,
+            NextCameraRotation(),
+            ref rotationVelocity, 
+            0.7F, 
+            1000
+        );
+        this.transform.rotation = Quaternion.Euler(eulerAngles);
+    }
     private Vector3 NextCameraPosition()
     {
         var activePlatform = spawnerPlatform.FindActivePlatform();
@@ -57,6 +75,34 @@ public class CameraController : MonoBehaviour
             return CameraPositionOnPlayer();
         }
     }
+
+    private float NextCameraRotation()
+    {
+        var platform = spawnerPlatform.FindActivePlatform();
+        if (platform.CompareTag("qte"))
+        {
+            if (gamePhaseController.GetCurrentPhase() == GamePhaseController.Phase.QTE_START)
+            {
+                return 35;
+                
+            } else if (gamePhaseController.GetCurrentPhase() == GamePhaseController.Phase.QTE_ACTIVE)
+            {
+                return 35;
+                
+            }
+        }
+        
+        var nextPlatform = spawnerPlatform.FindNextPlatform();
+        if (nextPlatform.CompareTag("qte"))
+        {
+            return 20;
+        }
+        else
+        {
+            return 10F;
+        }
+    }
+
 
     private bool IsCurrentQteNotEnding(GameObject activePlatform)
     {

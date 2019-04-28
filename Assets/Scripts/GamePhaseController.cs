@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class GamePhaseController : MonoBehaviour
 {
+    private const float QteRelativeActiveThreshold = 0.8F;
+    
     public SpawnerPlatform spawnerPlatform;
     public RunningRule runningRule;
     public JumpDashRule jumpDash;
@@ -71,7 +73,7 @@ public class GamePhaseController : MonoBehaviour
                 }
                 break;
             case Phase.QTE_START:
-                if (spawnerPlatform.FindPlatformRelativePosition() > 0.5F)
+                if (spawnerPlatform.FindPlatformRelativePosition() > QteRelativeActiveThreshold)
                 {
                     return Phase.QTE_ACTIVE;
                 }
@@ -81,7 +83,7 @@ public class GamePhaseController : MonoBehaviour
                 {
                     return Phase.RUNNING;
                 }
-                if (spawnerPlatform.FindPlatformRelativePosition() < 0.5F)
+                if (spawnerPlatform.FindPlatformRelativePosition() < QteRelativeActiveThreshold)
                 {
                     return Phase.QTE_START;
                 }

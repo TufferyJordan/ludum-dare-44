@@ -13,8 +13,12 @@ public class SpawnerPlatform : MonoBehaviour
     public Object[] basicPlatform;
     public Object[] obstaclePlatform;
     public Object[] buildingPlatform;
+    public Object basicBase;
+    public Object obstacleBase;
+    public Object buildingBase;
     
     private Object[][] platforms;
+    private Object[] bases;
     private int[] platformWeights;
 
     public GameObject player;
@@ -26,31 +30,37 @@ public class SpawnerPlatform : MonoBehaviour
     {
         _nextSpawnLocation = -1;
         platforms = new[] {basicPlatform, obstaclePlatform, buildingPlatform};
+        bases = new[] {basicBase, obstacleBase, buildingBase};
         platformWeights = new[] {1, 4, 2};
         
         while (_nextSpawnLocation < (PlatformCountAhead - 1))
         {
             var selectedPlatform = RandomPlatformOf(basicPlatform);
-            CreateNewPlatform(selectedPlatform, _nextSpawnLocation);
-            _nextSpawnLocation++;
+            CreateNewPlatform(selectedPlatform, basicBase, _nextSpawnLocation);
         }
     }
 
-    private GameObject CreateNewPlatform(Object selectedPlatform, int location)
+    private void CreateNewPlatform(Object selectedPlatform, Object selectedBase, int location)
     {
         var newPlatform = Instantiate(selectedPlatform, new Vector3(location * PlatformLength, 0, 0), Quaternion.identity) as GameObject;
-        newPlatform.transform.SetParent(this.transform);
-        return newPlatform;
+        var newBase = Instantiate(selectedBase, new Vector3(location * PlatformLength, 0, 0), Quaternion.identity) as GameObject;
+        newPlatform.transform.SetParent(newBase.transform);
+        newBase.transform.SetParent(this.transform);
+        _nextSpawnLocation++;
     }
 
-    private Object WeightedRandomPlatform()
+    private Object WeightedRandomPlatform(int randomWeightedIndex)
+    {
+        var currentPlatformType = platforms[randomWeightedIndex];
+        var selectedPlatform = RandomPlatformOf(currentPlatformType);
+        return selectedPlatform;
+    }
+
+    private int RandomWeightedIndex()
     {
         var platformType = RandomIntRange(0, platformWeights.Sum());
         var selectedIndex = IndexedWeight(platformWeights, platformType);
-
-        var currentPlatformType = platforms[selectedIndex];
-        var selectedPlatform = RandomPlatformOf(currentPlatformType);
-        return selectedPlatform;
+        return selectedIndex;
     }
 
     private static int IndexedWeight(int[] platformWeights, int platformType)
@@ -99,14 +109,15 @@ public class SpawnerPlatform : MonoBehaviour
 
         if (lastChild.CompareTag("qte"))
         {
-            CreateNewPlatform(RandomPlatformOf(basicPlatform), _nextSpawnLocation);
+            CreateNewPlatform(RandomPlatformOf(basicPlatform), basicBase, _nextSpawnLocation);
+            CreateNewPlatform(RandomPlatformOf(basicPlatform), basicBase, _nextSpawnLocation);
         }
         else
         {
-            CreateNewPlatform(WeightedRandomPlatform(), _nextSpawnLocation);
+            var index = RandomWeightedIndex();
+            var selectedBase = bases[index];
+            CreateNewPlatform(WeightedRandomPlatform(index), selectedBase, _nextSpawnLocation);
         }
-
-        _nextSpawnLocation++;
     }
 
     public GameObject FindActivePlatform()
