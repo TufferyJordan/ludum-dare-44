@@ -10,12 +10,12 @@ public class PlayerController : MonoBehaviour
     public GameModifiers gameModifiers;
 
     private Collider _collider;
-    private MeshRenderer _meshRenderer;
+    private SkinnedMeshRenderer _meshRenderer;
     private RunningRule _listener;
 
     void Start()
     {
-        _meshRenderer = GetComponent<MeshRenderer>();
+        _meshRenderer = GameObject.Find("Group3123").GetComponent<SkinnedMeshRenderer>();
         _collider = GetComponent<Collider>();
     }
 
