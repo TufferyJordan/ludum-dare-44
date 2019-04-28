@@ -41,6 +41,7 @@ public class JumpDashRule : MonoBehaviour
 
     public void DashForward()
     {
+        AudioManager.instance.Dash();
         if (isActiveAndEnabled && IsGrounded() && _dashDebounce <= 0)
         {
             _dashDebounce = DebounceDuration;

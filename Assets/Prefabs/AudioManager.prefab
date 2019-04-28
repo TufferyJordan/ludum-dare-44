@@ -46,20 +46,20 @@ MonoBehaviour:
   sounds:
   - name: Running
     clip: {fileID: 8300000, guid: 3774e34ca694f4ce2b83d12ea93bf305, type: 3}
-    volume: 0.7
+    volume: 0.3
     pitch: 1
     loop: 1
     source: {fileID: 0}
   - name: running_cloth
     clip: {fileID: 8300000, guid: a555bc6a915c84e148f74970e3b44313, type: 3}
-    volume: 0.3
+    volume: 0.2
     pitch: 1
     loop: 1
     source: {fileID: 0}
   - name: coin_2
-    clip: {fileID: 8300000, guid: 8051134f7433e473a9f64c9d6a06dbbf, type: 3}
-    volume: 0.5
-    pitch: 2
+    clip: {fileID: 8300000, guid: bdc83a88bfab14fccbbb3c1611955b88, type: 3}
+    volume: 0.4
+    pitch: 1
     loop: 1
     source: {fileID: 0}
   - name: coin_1
@@ -108,11 +108,11 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: d06b3a11eae87446bb5c6930833405f3, type: 3}
     volume: 0.5
     pitch: 1
-    loop: 1
+    loop: 0
     source: {fileID: 0}
   - name: running_step
     clip: {fileID: 8300000, guid: f9ed3a01bbd694d249be16b4d13cd7ff, type: 3}
-    volume: 0.3
+    volume: 0.2
     pitch: 1
     loop: 1
     source: {fileID: 0}
@@ -136,7 +136,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: security_alarm_1
     clip: {fileID: 8300000, guid: d0013d7262e7e4580b9fe7e58ddb31e4, type: 3}
-    volume: 0.7
+    volume: 0.4
     pitch: 1
     loop: 1
     source: {fileID: 0}

@@ -28,6 +28,7 @@ public class GamePhaseController : MonoBehaviour
     {
         audioManager.Play("Running");
         _currentPhase = Phase.RUNNING;
+        AudioManager.instance.StartRunning();
         runningRule.enabled = true;
         jumpDash.enabled = true;
     }
@@ -40,18 +41,22 @@ public class GamePhaseController : MonoBehaviour
             Debug.Log(newPhase);
             _currentPhase = newPhase;
 
+            AudioManager amInstance = AudioManager.instance;
             switch (newPhase)
             {
                 case Phase.RUNNING:
+                    amInstance.StartRunning();
                     break;
                 case Phase.QTE_START:
                     jumpDash.enabled = false;
                     break;
                 case Phase.QTE_ACTIVE:
+                    amInstance.StopRunning();
                     runningRule.enabled = false;
                     qteController.Begin();
                     break;
                 case Phase.QTE_END:
+                    amInstance.StartRunning();
                     runningRule.enabled = true;
                     jumpDash.enabled = true;
                     break;

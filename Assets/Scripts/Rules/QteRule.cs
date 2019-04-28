@@ -44,6 +44,7 @@ public class QteRule : MonoBehaviour
             }
             else
             {
+                AudioManager.instance.FailRobbing();
                 PromptFailure();
             }
 
@@ -58,6 +59,7 @@ public class QteRule : MonoBehaviour
             }
             else
             {
+                AudioManager.instance.FailRobbing();
                 TimeLimitFailure();
             }
         }
@@ -177,6 +179,7 @@ public class QteRule : MonoBehaviour
         notif.BountyRise(Random.Range(1000,10000));
         notification.SetActive(true);
         StartCoroutine(HideBounty(2.0f));
+        AudioManager.instance.EarReward();
     }
 
     private IEnumerator HideBounty(float waitTime)

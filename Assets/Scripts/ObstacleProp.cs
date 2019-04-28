@@ -28,14 +28,19 @@ public class ObstacleProp : MonoBehaviour
         {
             return;
         }
-        
+
         alreadyCollided = true;
         if (ignoreFutureCollisions)
         {
             Physics.IgnoreCollision(player, _collider, true);
         }
         _rigidbody.AddForce(new Vector3(4, 1, 1) * _rigidbody.mass * 100);
-        _rigidbody.AddTorque(new Vector3(RandomValue(), RandomValue(), RandomValue())  * _rigidbody.mass);
+        _rigidbody.AddTorque(new Vector3(RandomValue(), RandomValue(), RandomValue()) * _rigidbody.mass);
+
+        if (player.CompareTag("player"))
+        {
+            AudioManager.instance.HitMetal();
+        }
     }
 
     private float RandomValue()
