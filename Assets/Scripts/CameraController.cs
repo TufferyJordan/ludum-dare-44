@@ -20,10 +20,9 @@ public class CameraController : MonoBehaviour
     {
         cameraVelocity = new Vector3();
         initialPlayerYpos = player.transform.position.y;
-        cameraOffset = transform.position - player.transform.position;
-        cameraQteOffset = cameraOffset - new Vector3(cameraOffset.x + 4, 1, -5);
-//        cameraRotation = transform.rotation;
-//        cameraQteRotation = transform.rotation * Quaternion.Euler(0, 20, 0);
+        var relativePosition = transform.position - player.transform.position;
+        cameraOffset = relativePosition + new Vector3(-3, -2, 3);
+        cameraQteOffset = relativePosition - new Vector3(relativePosition.x + 4, 1, -5);
         transform.position = CameraPositionOnPlayer();
     }
 
