@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6985273280699423338}
   - component: {fileID: 5904742976025206332}
   - component: {fileID: 2163692269376643758}
+  - component: {fileID: 5643638859771107530}
   m_Layer: 0
   m_Name: obstacle
   m_TagString: Untagged
@@ -50,7 +51,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4528351926807716929}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -108,6 +109,19 @@ MonoBehaviour:
   props:
   - {fileID: 1948511064677329068, guid: 9c8653a49948c05d5806bde493e4cfcd, type: 3}
   - {fileID: 8574529083839476125, guid: d71d669ea4f1bff4db3fbdbbb5ecff58, type: 3}
+--- !u!65 &5643638859771107530
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4528351926807716929}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 3.579102, z: 0.08614284}
+  m_Center: {x: 0, y: 1.289551, z: 0.45692858}
 --- !u!1 &5609670884957208679
 GameObject:
   m_ObjectHideFlags: 0
