@@ -19,7 +19,7 @@ public class UINotification : MonoBehaviour
     {
         imageGob.GetComponent<Image>().sprite = spriteImg;
         titleGob.GetComponent<Text>().text = title;
-        descriptionGob.GetComponent<Text>().text = description;
+        //descriptionGob.GetComponent<Text>().text = description;
     }
 
     // Update is called once per frame
@@ -28,7 +28,7 @@ public class UINotification : MonoBehaviour
         
     }
 
-    public void BountyRise(int bounty) { 
-        
+    public void BountyRise(int bounty) {
+        descriptionGob.GetComponent<Text>().text = "Your bounty is rising.\n+"+bounty+"$";
     }
 }

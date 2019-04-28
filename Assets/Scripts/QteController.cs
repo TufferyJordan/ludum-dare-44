@@ -158,8 +158,9 @@ public class QteController : MonoBehaviour
 
     private void ShowBountyNotification()
     {
+        var notif = notification.GetComponent<UINotification>();
+        notif.BountyRise(Random.Range(1000,10000));
         notification.SetActive(true);
-        notification.GetComponent<UINotification>().BountyRise(1000);
         StartCoroutine(HideBounty(2.0f));
     }
 
