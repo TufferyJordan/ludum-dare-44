@@ -14,7 +14,9 @@ public class QteRule : MonoBehaviour
     public Text qteButtonUI;
     public Text qteTimeRemainingUI;
     public GameModifiers gameModifiers;
+    
     private float _timeRemainingForCurrentPrompt;
+    private float _qteDuration;
 
     public GameObject notification;
 
@@ -67,6 +69,7 @@ public class QteRule : MonoBehaviour
         if (_qteRemaining <= 0)
         {
             End();
+            gameModifiers.SuccessfulQte();
             ShowBountyNotification();
         }
         else
@@ -111,7 +114,16 @@ public class QteRule : MonoBehaviour
         }
 
         enabled = true;
-        _qteRemaining = 2 + Random.Range(0, 5);
+        if (gameModifiers.IsMaxDangerLevel())
+        {
+            _qteRemaining = 10;
+            _qteDuration = 0.7F;
+        }
+        else
+        {
+            _qteRemaining = 2 + Random.Range(0, 5);
+            _qteDuration = 1F;
+        }
         
         gameModifiers.ForceDisableInvulnerability();
         GeneratePrompt();
@@ -120,7 +132,7 @@ public class QteRule : MonoBehaviour
     private void GeneratePrompt()
     {
         _promptFor = NextPrompt();
-        _timeRemainingForCurrentPrompt = 1;
+        _timeRemainingForCurrentPrompt = _qteDuration;
         ShowPrompt();
     }
 

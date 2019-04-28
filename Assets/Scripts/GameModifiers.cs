@@ -5,16 +5,21 @@ using UnityEngine.UI;
 
 public class GameModifiers : MonoBehaviour
 {
-    private const int MaxDanger = 1;
-    
-    public Text dangerMeter; 
-    
+    private const int MaxDanger = 10;
+    private const int DangerAfterMaxQteSuccess = 6;
+    private const int MaxComboToDecreaseDanger = 3;
+    private const int ComboToDecreaseDangerCount = 3;
+
+    public Text dangerMeter;
+
     private int _danger;
     private float _invulnerable;
-    
+    private int _qteSuccessCombo;
+
     void Start()
     {
         _danger = 0;
+        _qteSuccessCombo = 0;
         UpdateDangerView();
     }
 
@@ -34,13 +39,46 @@ public class GameModifiers : MonoBehaviour
     public bool IsMaxDangerLevel()
     {
         return _danger == MaxDanger;
-    } 
+    }
+
+    public void SuccessfulQte()
+    {
+        if (IsMaxDangerLevel())
+        {
+            DecreaseDanger(MaxDanger - DangerAfterMaxQteSuccess);
+            UpdateDangerView();
+        }
+        else
+        {
+            _qteSuccessCombo++;
+            if (_qteSuccessCombo >= MaxComboToDecreaseDanger)
+            {
+                DecreaseDanger(ComboToDecreaseDangerCount);
+                UpdateDangerView();
+                
+            }
+        }
+    }
+
+    private void DecreaseDanger(int amount)
+    {
+        _danger -= amount;
+        if (_danger < 0)
+        {
+            _danger = 0;
+        }
+    }
 
     public void TakeDamage(DangerSource source)
     {
         if (_invulnerable > 0)
         {
             return;
+        }
+
+        if (source == DangerSource.QTE_INPUTTED_IN_ERROR || source == DangerSource.QTE_EXCEEDED_TIME_LIMIT)
+        {
+            _qteSuccessCombo = 0;
         }
         
         _danger++;
@@ -51,7 +89,6 @@ public class GameModifiers : MonoBehaviour
         
         _invulnerable = 1.5f;
         
-        // TODO danger view
         UpdateDangerView();
     }
 

@@ -27,6 +27,10 @@ public class OpponentRule : MonoBehaviour
             opponent.gameObject.SetActive(true);
             opponent.transform.position = CopyPlayerMinus(20);
             currentVelocity = new Vector3();
+        } else if (_maxInPlay && !gameModifiers.IsMaxDangerLevel())
+        {
+            _maxInPlay = false;
+            opponent.gameObject.SetActive(false);
         }
     }
 
