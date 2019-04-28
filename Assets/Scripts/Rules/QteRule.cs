@@ -5,16 +5,15 @@ using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
-public class QteController : MonoBehaviour
+public class QteRule : MonoBehaviour
 {
-    private bool _isQteRunning;
     private QteAction _promptFor;
     private int _qteRemaining;
     private QteAction? _actionThisTick;
 
     public Text qteButtonUI;
     public Text qteTimeRemainingUI;
-    public PlayerController playerController;
+    public GameModifiers gameModifiers;
     private float _timeRemainingForCurrentPrompt;
 
     public GameObject notification;
@@ -26,12 +25,11 @@ public class QteController : MonoBehaviour
     
     void Start()
     {
-        _isQteRunning = false;
     }
 
     void Update()
     {
-        if (!_isQteRunning)
+        if (!isActiveAndEnabled)
         {
             return;
         }
@@ -58,7 +56,7 @@ public class QteController : MonoBehaviour
             }
             else
             {
-                PromptFailure();
+                TimeLimitFailure();
             }
         }
     }
@@ -77,15 +75,21 @@ public class QteController : MonoBehaviour
         }
     }
 
+    private void TimeLimitFailure()
+    {
+        gameModifiers.TakeDamage(GameModifiers.DangerSource.QTE_EXCEEDED_TIME_LIMIT);
+        End();
+    }
+
     private void PromptFailure()
     {
-        playerController.IncrementDanger();
+        gameModifiers.TakeDamage(GameModifiers.DangerSource.QTE_INPUTTED_IN_ERROR);
         End();
     }
 
     public void Input(QteAction action)
     {
-        if (!_isQteRunning)
+        if (!isActiveAndEnabled)
         {
             return;
         }
@@ -95,22 +99,21 @@ public class QteController : MonoBehaviour
 
     private void End()
     {
-        _isQteRunning = false;
+        enabled = false;
         HidePrompt();
     }
 
     public void Begin()
     {
-        if (_isQteRunning)
+        if (isActiveAndEnabled)
         {
             return;
         }
 
-
-        _isQteRunning = true;
+        enabled = true;
         _qteRemaining = 2 + Random.Range(0, 5);
         
-        playerController.ForceDisableInvulnerability();
+        gameModifiers.ForceDisableInvulnerability();
         GeneratePrompt();
     }
 
@@ -153,7 +156,7 @@ public class QteController : MonoBehaviour
     }
 
     public bool IsQteRunning() {
-        return _isQteRunning;
+        return isActiveAndEnabled;
     }
 
     private void ShowBountyNotification()

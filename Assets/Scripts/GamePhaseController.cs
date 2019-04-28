@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class GamePhaseController : MonoBehaviour
 {
-    private const double QteTempTimeLimit = 1D;
-
     public SpawnerPlatform spawnerPlatform;
-    public QteController qteController;
+    public RunningRule runningRule;
+    public JumpDashRule jumpDash;
+    public QteRule qteController;
     
     private Phase _currentPhase;
 
@@ -20,14 +20,14 @@ public class GamePhaseController : MonoBehaviour
         QTE_END
     }
     
-    // Start is called before the first frame update
     void Start()
     {
         _currentPhase = Phase.RUNNING;
+        runningRule.enabled = true;
+        jumpDash.enabled = true;
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         var newPhase = CalculateNewPhase();
         if (_currentPhase != newPhase)
@@ -35,9 +35,23 @@ public class GamePhaseController : MonoBehaviour
             Debug.Log(newPhase);
             _currentPhase = newPhase;
 
-            if (newPhase == Phase.QTE_ACTIVE)
+            switch (newPhase)
             {
-                qteController.Begin();
+                case Phase.RUNNING:
+                    break;
+                case Phase.QTE_START:
+                    jumpDash.enabled = false;
+                    break;
+                case Phase.QTE_ACTIVE:
+                    runningRule.enabled = false;
+                    qteController.Begin();
+                    break;
+                case Phase.QTE_END:
+                    runningRule.enabled = true;
+                    jumpDash.enabled = true;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
     }
