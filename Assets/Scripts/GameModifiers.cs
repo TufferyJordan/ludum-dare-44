@@ -99,6 +99,7 @@ public class GameModifiers : MonoBehaviour
 
     private void UpdateDangerView()
     {
+        Time.timeScale = 1F + (_danger / (MaxDanger * 1F)) * 0.5F;
         dangerMeter.text = "Danger: " + _danger;
     }
 

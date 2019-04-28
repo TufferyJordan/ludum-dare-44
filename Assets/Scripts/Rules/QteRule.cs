@@ -117,7 +117,7 @@ public class QteRule : MonoBehaviour
         if (gameModifiers.IsMaxDangerLevel())
         {
             _qteRemaining = 10;
-            _qteDuration = 0.7F;
+            _qteDuration = 1F;
         }
         else
         {
