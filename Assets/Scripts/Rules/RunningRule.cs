@@ -15,6 +15,11 @@ public class RunningRule : MonoBehaviour
         playerController.RegisterRuleListener(this);
     }
 
+    public void CancelVelocity()
+    {
+        playerRigid.velocity = new Vector3();
+    }
+
     private void FixedUpdate()
     {
         var newPosition = playerRigid.position + new Vector3(MovementVelocity * Time.fixedDeltaTime, 0, 0);

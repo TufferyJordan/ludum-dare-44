@@ -54,6 +54,7 @@ public class GamePhaseController : MonoBehaviour
                     amInstance.StopRunning();
                     runningRule.enabled = false;
                     qteController.Begin();
+                    runningRule.CancelVelocity();
                     break;
                 case Phase.QTE_END:
                     amInstance.StartRunning();
