@@ -18,12 +18,24 @@ public class ObstacleBlock : MonoBehaviour
         var randomObstacle = props[Random.Range(0, props.Length)];
 
         var invert = Random.Range(0, 2) == 0 ? 0 : 180;
-        var prop = Instantiate(randomObstacle, transform.position + new Vector3(0, 0, 0), Quaternion.Euler(0, Random.Range(-35, 35) + invert, 0)) as GameObject;
 
-        var physicalObject = prop.transform.GetChild(0).GetComponent<Collider>();
-        prop.transform.position += new Vector3(0, physicalObject.bounds.extents.y + 0.2F, 0);
-        
+        var spawn = FindSpawnPoint();
+        var prop = Instantiate(randomObstacle, spawn, Quaternion.Euler(0, Random.Range(-35, 35) + invert, 0)) as GameObject;
+
         _deleteOnDestroy.Add(prop.transform);
+    }
+
+    private Vector3 FindSpawnPoint()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, Mathf.Infinity, 0))
+        {
+            return hit.point;
+        }
+        else
+        {
+            return transform.position + new Vector3(0, 1, 0);
+        }
     }
 
     void Update()

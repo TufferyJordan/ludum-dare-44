@@ -107,6 +107,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   props:
   - {fileID: 1948511064677329068, guid: 9c8653a49948c05d5806bde493e4cfcd, type: 3}
+  - {fileID: 8574529083839476125, guid: d71d669ea4f1bff4db3fbdbbb5ecff58, type: 3}
 --- !u!1 &5609670884957208679
 GameObject:
   m_ObjectHideFlags: 0
