@@ -44,7 +44,7 @@ public class JumpDashRule : MonoBehaviour
     {
         if (isActiveAndEnabled && IsGrounded() && _jumpDebounce <= 0)
         {
-            //AudioManager.instance.StartJump();
+            AudioManager.instance.StartJump();
             _animator.SetBool("isJumping", true);
             _jumpDebounce = DebounceDuration;
             _playerRigidBody.AddForce(Vector3.up * jumpForce);
