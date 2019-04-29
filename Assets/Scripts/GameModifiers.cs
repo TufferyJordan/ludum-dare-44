@@ -13,8 +13,6 @@ public class GameModifiers : MonoBehaviour
     private const float InvulnerabilityDuration = 1f;
     private const int BountyDifficultyStep = 1000;
 
-    public Text dangerMeter;
-
     private int _danger;
     private float _invulnerable;
     private int _qteSuccessCombo;
@@ -117,7 +115,6 @@ public class GameModifiers : MonoBehaviour
     private void WhenDangerChanges()
     {
         ChangeGameSpeed();
-        dangerMeter.text = "Danger: " + _danger;
         GameObject.Find("UIUpdater").GetComponent<UIUpdater>().UpdateDanger(_danger);
     }
 

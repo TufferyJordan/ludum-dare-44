@@ -42,7 +42,7 @@ public class OpponentRule : MonoBehaviour
                 opponent.transform.position,
                 CopyPlayerMinus(0),
                 ref currentVelocity,
-                0.7F
+                0.3F
             ));
         }
     }
