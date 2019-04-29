@@ -10,12 +10,10 @@ public class OpponentRule : MonoBehaviour
 
     private bool _maxInPlay;
     private Vector3 currentVelocity;
-    private Collider _collider;
 
     void Start()
     {
         _maxInPlay = false;
-        _collider = GetComponent<Collider>();
         opponent.RegisterListener(this);
     }
 
@@ -66,7 +64,7 @@ public class OpponentRule : MonoBehaviour
         var obstacleProp = other.transform.GetComponent<ObstacleProp>();
         if (obstacleProp != null && !obstacleProp.IsAlreadyCollided())
         {
-            obstacleProp.DoCollide(_collider, false);
+            obstacleProp.DoCollide(opponent, false);
         }
     }
 }
