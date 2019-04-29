@@ -157,4 +157,9 @@ public class AudioManager : MonoBehaviour
     {
         Play("Intro");
     }
+
+    public void SuccessQTE()
+    {
+        Play("success_qte");
+    }
 }

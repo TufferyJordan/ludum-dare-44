@@ -74,6 +74,7 @@ public class QteRule : MonoBehaviour
 
     private void PromptSuccessful()
     {
+        AudioManager.instance.SuccessQTE();
         _qtePerformed++;
         cameraController.Nudge();
         GeneratePrompt();

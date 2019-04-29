@@ -170,3 +170,10 @@ MonoBehaviour:
     isOST: 1
     loop: 1
     source: {fileID: 0}
+  - name: success_qte
+    clip: {fileID: 8300000, guid: 8d9e5eafa9bea4ddb85e390ba1ae69cb, type: 3}
+    volume: 0.4
+    pitch: 1
+    isOST: 0
+    loop: 0
+    source: {fileID: 0}
