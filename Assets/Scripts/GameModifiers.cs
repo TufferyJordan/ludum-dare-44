@@ -101,6 +101,7 @@ public class GameModifiers : MonoBehaviour
     {
         Time.timeScale = 1F + (_danger / (MaxDanger * 1F)) * 0.5F;
         dangerMeter.text = "Danger: " + _danger;
+        GameObject.Find("UIUpdater").GetComponent<UIUpdater>().UpdateDanger(_danger);
     }
 
     void Update()

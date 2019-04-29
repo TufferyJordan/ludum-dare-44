@@ -7,20 +7,33 @@ public class UIUpdater : MonoBehaviour
 {
     public GameObject notification;
     public GameObject bountyText;
+    public GameObject dangerBar;
 
     private int _totalBounty;
+    private int _bountyToGo;
+    private int _incrementSteps;
 
     // Start is called before the first frame update
     void Start()
     {
         _totalBounty = 0;
         bountyText.GetComponent<Text>().text = _totalBounty.ToString();
+        dangerBar.GetComponent<Image>().color = Color.green;
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        if(_totalBounty < _bountyToGo)
+        {
+            _totalBounty+=_incrementSteps;
+            bountyText.GetComponent<Text>().text = _totalBounty.ToString();
+        }
+        else
+        {
+            _totalBounty = _bountyToGo;
+            bountyText.GetComponent<Text>().text = _totalBounty.ToString();
+        }
     }
 
     private IEnumerator HideBounty(float waitTime)
@@ -38,9 +51,21 @@ public class UIUpdater : MonoBehaviour
         StartCoroutine(HideBounty(2.0f));
         AudioManager.instance.EarReward();
 
-        _totalBounty += value;
-        bountyText.GetComponent<Text>().text = "" + _totalBounty;
+        _bountyToGo += value;
+        _incrementSteps += (int) Mathf.Round(value / 100);
         Debug.Log(_totalBounty);
     }
-            
+
+    public void UpdateDanger(int dangerValue)
+    {
+        if (dangerValue <= 3) {
+            dangerBar.GetComponent<Image>().color = Color.green;
+        } else if (dangerValue <= 6) {
+            dangerBar.GetComponent<Image>().color = Color.yellow;
+        }
+        else {
+            dangerBar.GetComponent<Image>().color = Color.red;
+        }
+    }
+
 }

@@ -1703,6 +1703,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   notification: {fileID: 1191587282}
   bountyText: {fileID: 459738418}
+  dangerBar: {fileID: 445185817}
 --- !u!1 &1448646323
 GameObject:
   m_ObjectHideFlags: 0
