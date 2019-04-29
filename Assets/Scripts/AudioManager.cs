@@ -35,15 +35,17 @@ public class AudioManager : MonoBehaviour
     public void Play(String name)
     {
         Sound s = Array.Find(sounds, sound => sound.name == name);
-        if (s == null)
-        {
+        if (s == null) {
             return;
         }
-        else if(s.source.isPlaying)
-        {
+
+        if (!s.isOST && s.source.isPlaying) {
             s.source.Stop();
+            s.source.Play();
+        } else if (!s.source.isPlaying) {
+            s.source.Play();
         }
-        s.source.Play();
+
     }
 
     public void Stop(string name)
@@ -67,25 +69,45 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public IEnumerator PlayFor(String name, int seconds)
+    public IEnumerator PlayFor(String name, float seconds)
     {
         Play(name);
         yield return new WaitForSeconds(seconds);
         Stop(name);
     }
 
+    public void PlayerHitWood()
+    {
+        HitWood();
+        HitPlayer();
+    }
+
     public void HitWood()
     {
         Play("shock_wood");
         Play("break_wood");
+    }
+
+    public void PlayerHitMetal()
+    {
+        HitMetal();
         HitPlayer();
     }
 
     public void HitMetal()
     {
         Play("shock_metal");
-        Play("shock_garbage");
+    }
+
+    public void PlayerHitGarbage()
+    {
+        HitGarbage();
         HitPlayer();
+    }
+
+    public void HitGarbage()
+    {
+        Play("shock_garbage");
     }
 
     public void HitPlayer()
@@ -108,7 +130,7 @@ public class AudioManager : MonoBehaviour
 
     public void FailRobbing()
     {
-        Play("fight_man_1");
+        Play("fight_man_2");
     }
 
     public void Dash()
@@ -118,7 +140,7 @@ public class AudioManager : MonoBehaviour
 
     public void EarReward()
     {
-        StartCoroutine(PlayFor("coin_2",1));
+        StartCoroutine(PlayFor("coin_2",1.5F));
     }
 
     public void StartJump()
