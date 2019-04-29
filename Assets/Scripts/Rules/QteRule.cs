@@ -22,11 +22,18 @@ public class QteRule : MonoBehaviour
     private int _qteMandatoryCount;
     private int _qtePerformed;
 
+    private bool _isFirstQte;
+
     public enum QteAction
     {
         UP, DOWN, LEFT, RIGHT
     }
-    
+
+    private void Awake()
+    {
+        _isFirstQte = true;
+    }
+
     void Start()
     {
     }
@@ -91,6 +98,7 @@ public class QteRule : MonoBehaviour
         {
             var bonusQteCount = _qtePerformed - _qteMandatoryCount;
             gameModifiers.SuccessfulQte(bonusQteCount);
+            _isFirstQte = false;
         }
         End();
     }
@@ -133,7 +141,15 @@ public class QteRule : MonoBehaviour
         else
         {
             _qteMandatoryCount = 2 + Random.Range(0, 5);
-            _qteDuration = 1F;
+
+            if (_isFirstQte)
+            {
+                _qteDuration = 3F;
+            }
+            else
+            {
+                _qteDuration = 1F;
+            }
         }
         
         gameModifiers.ForceDisableInvulnerability();
