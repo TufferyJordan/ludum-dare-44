@@ -14,6 +14,7 @@ public class QteRule : MonoBehaviour
     public Text qteTimeRemainingUI;
     public GameModifiers gameModifiers;
     public CameraController cameraController;
+    public GameOverController gameOverController;
     
     private float _timeRemainingForCurrentPrompt;
     private float _qteDuration;
@@ -75,9 +76,13 @@ public class QteRule : MonoBehaviour
 
     private void Failure(GameModifiers.DangerSource dangerSource)
     {
-        if (IsQteConsideredHarmful()) {
+        if (gameModifiers.IsMaxDangerLevel())
+        {
+            gameOverController.OnGameOver();
+        }
+        else if (IsQteConsideredHarmful()) 
+        {
             gameModifiers.TakeDamage(dangerSource);
-            
         }
         else
         {

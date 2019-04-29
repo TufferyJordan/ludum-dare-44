@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class CreditsEvents : MonoBehaviour
+public class CreditsController : MonoBehaviour
 {
     public void OnAnimationEnd()
     {

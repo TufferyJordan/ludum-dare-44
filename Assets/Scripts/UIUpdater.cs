@@ -52,7 +52,7 @@ public class UIUpdater : MonoBehaviour
         AudioManager.instance.EarReward();
 
         _bountyToGo += value;
-        _incrementSteps += (int) Mathf.Round(value / 100);
+        _incrementSteps += (int) Mathf.Round(value / 10);
     }
 
     public void UpdateDanger(int dangerValue)

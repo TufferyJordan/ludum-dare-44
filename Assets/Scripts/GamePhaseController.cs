@@ -11,6 +11,7 @@ public class GamePhaseController : MonoBehaviour
     public RunningRule runningRule;
     public JumpDashRule jumpDash;
     public QteRule qteController;
+    public GameOverController gameOverController;
     
     private Phase _currentPhase;
 
@@ -93,7 +94,7 @@ public class GamePhaseController : MonoBehaviour
                 }
                 break;
             case Phase.QTE_ACTIVE:
-                if (!qteController.IsQteRunning())
+                if (!qteController.IsQteRunning() && !gameOverController.isGameOver)
                 {
                     return Phase.QTE_END;
                 }

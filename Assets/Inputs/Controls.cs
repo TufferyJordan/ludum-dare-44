@@ -334,6 +334,37 @@ public class Controls : IInputActionCollection
                     ""modifiers"": """"
                 }
             ]
+        },
+        {
+            ""name"": ""CreditsControls"",
+            ""id"": ""02109cd3-6ab2-49d7-971e-172786a7358d"",
+            ""actions"": [
+                {
+                    ""name"": ""QuitCredits"",
+                    ""id"": ""fe42fbdd-572f-4172-998f-db9ca615744d"",
+                    ""expectedControlLayout"": """",
+                    ""continuous"": false,
+                    ""passThrough"": false,
+                    ""initialStateCheck"": false,
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""bindings"": []
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""62cd2c9b-437c-473b-b7f3-28af04cb54b4"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""QuitCredits"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false,
+                    ""modifiers"": """"
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -350,6 +381,9 @@ public class Controls : IInputActionCollection
         m_QteControls_Down = m_QteControls.GetAction("Down");
         m_QteControls_Left = m_QteControls.GetAction("Left");
         m_QteControls_Right = m_QteControls.GetAction("Right");
+        // CreditsControls
+        m_CreditsControls = asset.GetActionMap("CreditsControls");
+        m_CreditsControls_QuitCredits = m_CreditsControls.GetAction("QuitCredits");
     }
     ~Controls()
     {
@@ -515,6 +549,45 @@ public class Controls : IInputActionCollection
             return new QteControlsActions(this);
         }
     }
+    // CreditsControls
+    private InputActionMap m_CreditsControls;
+    private ICreditsControlsActions m_CreditsControlsActionsCallbackInterface;
+    private InputAction m_CreditsControls_QuitCredits;
+    public struct CreditsControlsActions
+    {
+        private Controls m_Wrapper;
+        public CreditsControlsActions(Controls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @QuitCredits { get { return m_Wrapper.m_CreditsControls_QuitCredits; } }
+        public InputActionMap Get() { return m_Wrapper.m_CreditsControls; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled { get { return Get().enabled; } }
+        public InputActionMap Clone() { return Get().Clone(); }
+        public static implicit operator InputActionMap(CreditsControlsActions set) { return set.Get(); }
+        public void SetCallbacks(ICreditsControlsActions instance)
+        {
+            if (m_Wrapper.m_CreditsControlsActionsCallbackInterface != null)
+            {
+                QuitCredits.started -= m_Wrapper.m_CreditsControlsActionsCallbackInterface.OnQuitCredits;
+                QuitCredits.performed -= m_Wrapper.m_CreditsControlsActionsCallbackInterface.OnQuitCredits;
+                QuitCredits.cancelled -= m_Wrapper.m_CreditsControlsActionsCallbackInterface.OnQuitCredits;
+            }
+            m_Wrapper.m_CreditsControlsActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                QuitCredits.started += instance.OnQuitCredits;
+                QuitCredits.performed += instance.OnQuitCredits;
+                QuitCredits.cancelled += instance.OnQuitCredits;
+            }
+        }
+    }
+    public CreditsControlsActions @CreditsControls
+    {
+        get
+        {
+            return new CreditsControlsActions(this);
+        }
+    }
     public interface IPlayerControlsActions
     {
         void OnJump(InputAction.CallbackContext context);
@@ -528,5 +601,9 @@ public class Controls : IInputActionCollection
         void OnDown(InputAction.CallbackContext context);
         void OnLeft(InputAction.CallbackContext context);
         void OnRight(InputAction.CallbackContext context);
+    }
+    public interface ICreditsControlsActions
+    {
+        void OnQuitCredits(InputAction.CallbackContext context);
     }
 }

@@ -320,6 +320,37 @@
                     "modifiers": ""
                 }
             ]
+        },
+        {
+            "name": "CreditsControls",
+            "id": "02109cd3-6ab2-49d7-971e-172786a7358d",
+            "actions": [
+                {
+                    "name": "QuitCredits",
+                    "id": "fe42fbdd-572f-4172-998f-db9ca615744d",
+                    "expectedControlLayout": "",
+                    "continuous": false,
+                    "passThrough": false,
+                    "initialStateCheck": false,
+                    "processors": "",
+                    "interactions": "",
+                    "bindings": []
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "62cd2c9b-437c-473b-b7f3-28af04cb54b4",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "QuitCredits",
+                    "isComposite": false,
+                    "isPartOfComposite": false,
+                    "modifiers": ""
+                }
+            ]
         }
     ],
     "controlSchemes": []
