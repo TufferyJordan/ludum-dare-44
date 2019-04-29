@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,6 +19,7 @@ public class JumpDashRule : MonoBehaviour
     private Animator _animator;
     private Vector3 _initialColliderCenter;
     private Vector3 _initialColliderSize;
+    private bool _jumpAsSoonAsGrounded;
 
 
     void Awake()
@@ -30,6 +32,7 @@ public class JumpDashRule : MonoBehaviour
         _lastYPosition = player.transform.position.y;
         _initialColliderSize = player.GetComponent<BoxCollider>().size;
         _initialColliderCenter = player.GetComponent<BoxCollider>().center;
+        _jumpAsSoonAsGrounded = false;
     }
 
     private void Update()
@@ -39,15 +42,30 @@ public class JumpDashRule : MonoBehaviour
         _dashAndCrouchDebounce -= Time.deltaTime;
     }
 
+    private void FixedUpdate()
+    {
+        if (isActiveAndEnabled && _jumpAsSoonAsGrounded && IsGrounded() && Math.Abs(_playerRigidBody.velocity.y) < 0.1f)
+        {
+            Jump();
+            _jumpAsSoonAsGrounded = false;
+        }
+    }
 
     public void Jump()
     {
-        if (isActiveAndEnabled && IsGrounded() && _jumpDebounce <= 0)
+        if (isActiveAndEnabled && _jumpDebounce <= 0)
         {
-            AudioManager.instance.StartJump();
-            _animator.SetBool("isJumping", true);
-            _jumpDebounce = DebounceDuration;
-            _playerRigidBody.AddForce(Vector3.up * jumpForce);
+            if (IsGrounded() && _jumpDebounce <= 0)
+            {
+                AudioManager.instance.StartJump();
+                _animator.SetBool("isJumping", true);
+                _jumpDebounce = DebounceDuration;
+                _playerRigidBody.AddForce(Vector3.up * jumpForce);
+            }
+            else if (!_jumpAsSoonAsGrounded && IsAlmostGrounded())
+            {
+                _jumpAsSoonAsGrounded = true;
+            }
         }
     }
 
@@ -101,5 +119,10 @@ public class JumpDashRule : MonoBehaviour
     private bool IsGrounded()
     {
         return Physics.Raycast(player.transform.position, -Vector3.up, _distanceToGround + 0.1f);
+    }
+
+    private bool IsAlmostGrounded()
+    {
+        return Physics.Raycast(player.transform.position, -Vector3.up, _distanceToGround + 2f);
     }
 }
