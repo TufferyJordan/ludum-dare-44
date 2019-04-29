@@ -57,12 +57,20 @@ public class UIUpdater : MonoBehaviour
 
     public void UpdateDanger(int dangerValue)
     {
-        if (dangerValue <= 3) {
+        if (dangerValue <= 3)
+        {
             dangerBar.GetComponent<Image>().color = Color.green;
-        } else if (dangerValue <= 6) {
+        }
+        else if (dangerValue <= 6)
+        {
             dangerBar.GetComponent<Image>().color = Color.yellow;
         }
-        else {
+        else if (dangerValue <= 9)
+        {
+            dangerBar.GetComponent<Image>().color = new Color(255, 128, 0);
+        }
+        else 
+        {
             dangerBar.GetComponent<Image>().color = Color.red;
         }
     }

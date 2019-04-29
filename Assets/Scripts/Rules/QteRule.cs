@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
@@ -11,6 +9,7 @@ public class QteRule : MonoBehaviour
     private QteAction? _actionThisTick;
 
     public GameObject qteButtonImage;
+    public GameObject qteProgress;
     public Text qteTimeRemainingUI;
     public GameModifiers gameModifiers;
     public CameraController cameraController;
@@ -188,16 +187,16 @@ public class QteRule : MonoBehaviour
         switch (_promptFor)
         {
             case QteAction.UP:
-                qteButtonImage.GetComponent<Image>().sprite = Resources.Load<Sprite>("QTE/QTE_Released_U");
+                qteButtonImage.GetComponent<Animator>().SetInteger("Blink", 0);
                 break;
             case QteAction.DOWN:
-                qteButtonImage.GetComponent<Image>().sprite = Resources.Load<Sprite>("QTE/QTE_Released_D");
+                qteButtonImage.GetComponent<Animator>().SetInteger("Blink", 1);
                 break;
             case QteAction.LEFT:
-                qteButtonImage.GetComponent<Image>().sprite = Resources.Load<Sprite>("QTE/QTE_Released_L");
+                qteButtonImage.GetComponent<Animator>().SetInteger("Blink", 2);
                 break;
             case QteAction.RIGHT:
-                qteButtonImage.GetComponent<Image>().sprite = Resources.Load<Sprite>("QTE/QTE_Released_R");
+                qteButtonImage.GetComponent<Animator>().SetInteger("Blink", 3);
                 break;
         }
     }
