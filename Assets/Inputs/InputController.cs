@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Experimental.Input;
+using UnityEngine.SceneManagement;
 
 public class InputController : MonoBehaviour
 {
@@ -16,6 +17,11 @@ public class InputController : MonoBehaviour
         //Adds listeners
         controls.PlayerControls.Jump.performed += context => jumpDashRule.Jump();
         controls.PlayerControls.DashForward.performed += context => jumpDashRule.DashForward();
+        controls.PlayerControls.Exit.performed += context =>
+        {
+            AudioManager.instance.StopAll();
+            SceneManager.LoadScene(0);
+        };
 
         controls.QteControls.Up.performed += context => qteRule.Input(QteRule.QteAction.UP);
         controls.QteControls.Down.performed += context => qteRule.Input(QteRule.QteAction.DOWN);

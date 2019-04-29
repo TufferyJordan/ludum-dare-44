@@ -40,6 +40,17 @@ public class Controls : IInputActionCollection
                     ""processors"": """",
                     ""interactions"": """",
                     ""bindings"": []
+                },
+                {
+                    ""name"": ""Exit"",
+                    ""id"": ""d1ab1394-8880-4189-bb63-7741fdaca9a3"",
+                    ""expectedControlLayout"": """",
+                    ""continuous"": false,
+                    ""passThrough"": false,
+                    ""initialStateCheck"": false,
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""bindings"": []
                 }
             ],
             ""bindings"": [
@@ -75,6 +86,18 @@ public class Controls : IInputActionCollection
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""DashForward"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false,
+                    ""modifiers"": """"
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5b7696f6-2fce-44a2-8ab8-5a18f7305592"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Exit"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false,
                     ""modifiers"": """"
@@ -212,6 +235,7 @@ public class Controls : IInputActionCollection
         m_PlayerControls = asset.GetActionMap("PlayerControls");
         m_PlayerControls_Jump = m_PlayerControls.GetAction("Jump");
         m_PlayerControls_DashForward = m_PlayerControls.GetAction("DashForward");
+        m_PlayerControls_Exit = m_PlayerControls.GetAction("Exit");
         // QteControls
         m_QteControls = asset.GetActionMap("QteControls");
         m_QteControls_Up = m_QteControls.GetAction("Up");
@@ -262,12 +286,14 @@ public class Controls : IInputActionCollection
     private IPlayerControlsActions m_PlayerControlsActionsCallbackInterface;
     private InputAction m_PlayerControls_Jump;
     private InputAction m_PlayerControls_DashForward;
+    private InputAction m_PlayerControls_Exit;
     public struct PlayerControlsActions
     {
         private Controls m_Wrapper;
         public PlayerControlsActions(Controls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Jump { get { return m_Wrapper.m_PlayerControls_Jump; } }
         public InputAction @DashForward { get { return m_Wrapper.m_PlayerControls_DashForward; } }
+        public InputAction @Exit { get { return m_Wrapper.m_PlayerControls_Exit; } }
         public InputActionMap Get() { return m_Wrapper.m_PlayerControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -284,6 +310,9 @@ public class Controls : IInputActionCollection
                 DashForward.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnDashForward;
                 DashForward.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnDashForward;
                 DashForward.cancelled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnDashForward;
+                Exit.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnExit;
+                Exit.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnExit;
+                Exit.cancelled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnExit;
             }
             m_Wrapper.m_PlayerControlsActionsCallbackInterface = instance;
             if (instance != null)
@@ -294,6 +323,9 @@ public class Controls : IInputActionCollection
                 DashForward.started += instance.OnDashForward;
                 DashForward.performed += instance.OnDashForward;
                 DashForward.cancelled += instance.OnDashForward;
+                Exit.started += instance.OnExit;
+                Exit.performed += instance.OnExit;
+                Exit.cancelled += instance.OnExit;
             }
         }
     }
@@ -371,6 +403,7 @@ public class Controls : IInputActionCollection
     {
         void OnJump(InputAction.CallbackContext context);
         void OnDashForward(InputAction.CallbackContext context);
+        void OnExit(InputAction.CallbackContext context);
     }
     public interface IQteControlsActions
     {
