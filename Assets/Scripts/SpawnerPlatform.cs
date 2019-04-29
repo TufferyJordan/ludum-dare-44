@@ -9,6 +9,8 @@ public class SpawnerPlatform : MonoBehaviour
 {
     private const int PlatformLength = 8;
     private const int PlatformCountAhead = 5;
+    private const int MinTimeBetweenQte = 10;
+    private const double QteSpawnProbability = 0.4;
 
     public Object[] basicPlatform;
     public Object[] obstaclePlatform;
@@ -24,14 +26,17 @@ public class SpawnerPlatform : MonoBehaviour
     public GameObject player;
 
     private int _nextSpawnLocation;
+    private int _timeSinceLastQte;
     
     // Start is called before the first frame update
     void Start()
     {
         _nextSpawnLocation = -1;
-        platforms = new[] {basicPlatform, basicPlatform, buildingPlatform};
-        bases = new[] {basicBase, obstacleBase, buildingBase};
-        platformWeights = new[] {1, 4, 2};
+        _timeSinceLastQte = 0;
+        
+        platforms = new[] {basicPlatform, basicPlatform};
+        bases = new[] {basicBase, obstacleBase};
+        platformWeights = new[] {1, 4};
         
         while (_nextSpawnLocation < (PlatformCountAhead - 1))
         {
@@ -112,12 +117,21 @@ public class SpawnerPlatform : MonoBehaviour
             CreateNewPlatform(RandomPlatformOf(basicPlatform), basicBase, _nextSpawnLocation);
             CreateNewPlatform(RandomPlatformOf(basicPlatform), basicBase, _nextSpawnLocation);
         }
+        else if (_timeSinceLastQte >= MinTimeBetweenQte && Random.Range(0F, 1F) < QteSpawnProbability)
+        {
+            CreateNewPlatform(RandomPlatformOf(buildingPlatform), buildingBase, _nextSpawnLocation);
+            
+            _timeSinceLastQte = 0;
+        }
         else
         {
             var index = RandomWeightedIndex();
             var selectedBase = bases[index];
             CreateNewPlatform(WeightedRandomPlatform(index), selectedBase, _nextSpawnLocation);
+            
+            _timeSinceLastQte++;
         }
+
     }
 
     public GameObject FindActivePlatform()
