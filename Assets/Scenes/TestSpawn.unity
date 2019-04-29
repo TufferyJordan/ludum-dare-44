@@ -1520,7 +1520,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55ef363e166900a73831d324f7e00e67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 251188138}
 --- !u!108 &1320758280
 Light:
   m_ObjectHideFlags: 0
@@ -2512,15 +2511,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   basicPlatform:
-  - {fileID: 1947205079940424848, guid: 62523bcb9727849e9814b415311967e4, type: 3}
+  - {fileID: 3865433457684167883, guid: 66e2ffd66dd19e74f958c9a281b56a10, type: 3}
+  - {fileID: 6606544726794812228, guid: 4d08b9813df399948ab52c0d6798aa04, type: 3}
+  - {fileID: 3684418080121758454, guid: 67460b8c7b167ea4693c3884d7d705dd, type: 3}
+  - {fileID: 407348425131045805, guid: 913d6d66f44c237479738a90af1f1921, type: 3}
+  - {fileID: 5921928283634534980, guid: 24d26faf452d4f143801214bc3c9d164, type: 3}
+  - {fileID: 8729313287901180770, guid: 31b5e081601bdc244aaf5effa742ccc3, type: 3}
+  - {fileID: 6144105230631546416, guid: 0cb63cfd65534c943b0e1b88335fed30, type: 3}
+  - {fileID: 7459180920344237766, guid: 395fd8970e405234c9498560a62aab65, type: 3}
   obstaclePlatform:
   - {fileID: 8665389581428894216, guid: a0f6e23e718d84114a7f6526ff248957, type: 3}
   - {fileID: 5616264596413739830, guid: eff9c1e912b654f5a9e1c0438dc9877d, type: 3}
   buildingPlatform:
-  - {fileID: 2214688365521708993, guid: ac1bfb5c7eb4b4fcca2242f315a45bf2, type: 3}
-  - {fileID: 3519830742709726495, guid: 34d619917bd4e47a5af350feff335708, type: 3}
-  - {fileID: 662736526739210841, guid: 9115873dd47c645fca80c0aa9b25ff2e, type: 3}
-  - {fileID: 473875316641239162, guid: 4c8d180af672a4925ac9a167d96a2002, type: 3}
+  - {fileID: 4093530470060944331, guid: a0ec47448f078c44188186414d89bb63, type: 3}
+  - {fileID: 7818960853627473433, guid: dd7792b526cd18c46903380da3d993a4, type: 3}
+  - {fileID: 1007092768061272908, guid: eded9665bb0a0c447b9afa1339fe5a8b, type: 3}
+  - {fileID: 3391361198504933143, guid: 0a481726d5066b140b55d56881b34e34, type: 3}
+  - {fileID: 6181447549383101399, guid: 0517bcb631b018f4db1cdd443dc983c0, type: 3}
+  - {fileID: 1600737965065498376, guid: b6c2c67eacd63a64f9a339e704755308, type: 3}
   basicBase: {fileID: 7363412242799082839, guid: d801b73ec64234fa19da9319cdc38dfa,
     type: 3}
   obstacleBase: {fileID: 4528351926807716929, guid: fbb5c7f0cd43947058aa3edb153a89da,
