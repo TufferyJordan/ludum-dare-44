@@ -11,6 +11,7 @@ public class GameModifiers : MonoBehaviour
     private const int MaxComboToDecreaseDanger = 3;
     private const int ComboToDecreaseDangerCount = 3;
     private const float InvulnerabilityDuration = 1f;
+    private const int BountyDifficultyStep = 1000;
 
     public Text dangerMeter;
 
@@ -18,12 +19,14 @@ public class GameModifiers : MonoBehaviour
     private float _invulnerable;
     private int _qteSuccessCombo;
     private int _maxDangerSuccessCount;
+    private int _totalBounty;
 
     void Start()
     {
         _danger = 0;
         _qteSuccessCombo = 0;
         _maxDangerSuccessCount = 0;
+        _totalBounty = 0;
         WhenDangerChanges();
     }
 
@@ -60,7 +63,6 @@ public class GameModifiers : MonoBehaviour
             {
                 DecreaseDanger(ComboToDecreaseDangerCount);
                 WhenDangerChanges();
-                
             }
         }
 
@@ -68,6 +70,9 @@ public class GameModifiers : MonoBehaviour
         var bountyOnQte = bonusQteCount * 100 + bonusQteCount;
         
         var bounty = 300 + bountyOnQte + bountyOnInverseDangerLevel;
+        _totalBounty += bounty;
+        
+        ChangeGameSpeed();
         
         GameObject.Find("UIUpdater").GetComponent<UIUpdater>().UpBounty(bounty);
     }
@@ -111,9 +116,17 @@ public class GameModifiers : MonoBehaviour
 
     private void WhenDangerChanges()
     {
-        Time.timeScale = 1F + (_danger / (MaxDanger * 1F)) * 0.5F + _maxDangerSuccessCount * 0.1F;
+        ChangeGameSpeed();
         dangerMeter.text = "Danger: " + _danger;
         GameObject.Find("UIUpdater").GetComponent<UIUpdater>().UpdateDanger(_danger);
+    }
+
+    private void ChangeGameSpeed()
+    {
+        var speedPenaltyMaxDanger = _maxDangerSuccessCount * 0.1F;
+        var speedPenaltyDanger = (_danger / (MaxDanger * 1F));
+        var speedDifficultyBounty = (_totalBounty / BountyDifficultyStep) * 0.05F;
+        var f = Time.timeScale = 1F + speedPenaltyDanger * 0.5F + speedPenaltyMaxDanger + speedDifficultyBounty;
     }
 
     void Update()
