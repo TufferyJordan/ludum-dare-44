@@ -13,6 +13,6 @@ public class DestroyerController : MonoBehaviour
 
     private void Update()
     {
-        transform.position = new Vector3(player.transform.position.x - 24, player.transform.position.y, player.transform.position.z);
+        transform.position = new Vector3(player.transform.position.x - 44, player.transform.position.y, player.transform.position.z);
     }
 }

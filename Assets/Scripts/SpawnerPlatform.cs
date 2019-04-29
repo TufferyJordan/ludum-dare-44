@@ -8,7 +8,8 @@ using Random = UnityEngine.Random;
 public class SpawnerPlatform : MonoBehaviour
 {
     private const int PlatformLength = 8;
-    private const int PlatformCountAhead = 5;
+    private const int InitialFlatPlatformCount = 2;
+    private const int PlatformCountAhead = 8;
     private const int MinTimeBetweenQte = 10;
     private const double QteSpawnProbability = 0.4;
 
@@ -38,10 +39,14 @@ public class SpawnerPlatform : MonoBehaviour
         bases = new[] {basicBase, obstacleBase};
         platformWeights = new[] {1, 4};
         
-        while (_nextSpawnLocation < (PlatformCountAhead - 1))
+        while (_nextSpawnLocation <= InitialFlatPlatformCount)
         {
             var selectedPlatform = RandomPlatformOf(basicPlatform);
             CreateNewPlatform(selectedPlatform, basicBase, _nextSpawnLocation);
+        }
+        while (ShouldSpawnNewPlatform())
+        {
+            SpawnNextPlatform();
         }
     }
 

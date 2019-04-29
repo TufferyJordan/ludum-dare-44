@@ -61,7 +61,7 @@ public class CameraController : MonoBehaviour
             NextCameraPosition(),
             ref cameraVelocity,
             0.7F,
-            20F,
+            40F,
             Time.fixedDeltaTime
         );
     }
