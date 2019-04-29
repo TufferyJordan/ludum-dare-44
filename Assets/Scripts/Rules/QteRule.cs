@@ -185,7 +185,7 @@ public class QteRule : MonoBehaviour
     {
         qteButtonImage.SetActive(true);
         qteProgress.SetActive(true);
-        qteProgress.GetComponent<Image>().fillAmount = 1;
+        qteProgress.GetComponent<Image>().fillAmount = _timeRemainingForCurrentPrompt / _qteDuration;
         switch (_promptFor)
         {
             case QteAction.UP:
