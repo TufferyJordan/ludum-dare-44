@@ -18,8 +18,6 @@ public class QteRule : MonoBehaviour
     private float _timeRemainingForCurrentPrompt;
     private float _qteDuration;
 
-    public GameObject notification;
-
     public enum QteAction
     {
         UP, DOWN, LEFT, RIGHT
@@ -175,17 +173,9 @@ public class QteRule : MonoBehaviour
 
     private void ShowBountyNotification()
     {
-        var notif = notification.GetComponent<UINotification>();
-        notif.BountyRise(Random.Range(1000,10000));
-        notification.SetActive(true);
-        StartCoroutine(HideBounty(2.0f));
-        AudioManager.instance.EarReward();
+        var bountyup = Random.Range(1000, 10000);
+        GameObject.Find("UIUpdater").GetComponent<UIUpdater>().UpBounty(bountyup);
     }
 
-    private IEnumerator HideBounty(float waitTime)
-    {
-        // suspend execution for 2 seconds
-        yield return new WaitForSeconds(waitTime);
-        notification.SetActive(false);
-    }
+
 }

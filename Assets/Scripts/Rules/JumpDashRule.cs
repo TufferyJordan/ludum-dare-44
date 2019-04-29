@@ -16,6 +16,9 @@ public class JumpDashRule : MonoBehaviour
     private float _dashDebounce;
     private Rigidbody _playerRigidBody;
     private Animator _animator;
+    private Vector3 _initialColliderCenter;
+    private Vector3 _initialColliderSize;
+
 
     void Awake()
     {
@@ -25,6 +28,8 @@ public class JumpDashRule : MonoBehaviour
         _playerRigidBody = player.transform.gameObject.GetComponent<Rigidbody>();
         _animator = GameObject.Find("Character").GetComponent<Animator>();
         _lastYPosition = player.transform.position.y;
+        _initialColliderSize = player.GetComponent<BoxCollider>().size;
+        _initialColliderCenter = player.GetComponent<BoxCollider>().center;
     }
 
     private void Update()
@@ -51,6 +56,9 @@ public class JumpDashRule : MonoBehaviour
         if (isActiveAndEnabled && IsGrounded() && _dashDebounce <= 0)
         {
             _animator.SetBool("isDashing", true);
+            //Adapts collider for dashing animation
+            player.GetComponent<BoxCollider>().center = new Vector3(0.009640098f, -0.3015763f, 0);
+            player.GetComponent<BoxCollider>().size = new Vector3(0.4023044f, 0.3389367f, 1);
             StartCoroutine(EndOfDash(0.8f));
             _dashDebounce = DebounceDuration;
             _playerRigidBody.AddForce(Vector3.right * dashForce);
@@ -62,6 +70,8 @@ public class JumpDashRule : MonoBehaviour
         // suspend execution for 2 seconds
         yield return new WaitForSeconds(waitTime);
         _animator.SetBool("isDashing", false);
+        player.GetComponent<BoxCollider>().center = _initialColliderCenter;
+        player.GetComponent<BoxCollider>().size = _initialColliderSize;
     }
 
     public void EndOfJump()
