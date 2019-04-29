@@ -76,13 +76,16 @@ public class QteRule : MonoBehaviour
 
     private void Failure(GameModifiers.DangerSource dangerSource)
     {
-        if (gameModifiers.IsMaxDangerLevel())
+        if (IsQteConsideredHarmful())
         {
-            gameOverController.OnGameOver();
-        }
-        else if (IsQteConsideredHarmful()) 
-        {
-            gameModifiers.TakeDamage(dangerSource);
+            if (gameModifiers.IsMaxDangerLevel())
+            {
+                gameOverController.OnGameOver();
+            }
+            else
+            {
+                gameModifiers.TakeDamage(dangerSource);
+            }
         }
         else
         {
