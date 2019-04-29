@@ -17,12 +17,14 @@ public class GameModifiers : MonoBehaviour
     private int _danger;
     private float _invulnerable;
     private int _qteSuccessCombo;
+    private int _maxDangerSuccessCount;
 
     void Start()
     {
         _danger = 0;
         _qteSuccessCombo = 0;
-        UpdateDangerView();
+        _maxDangerSuccessCount = 0;
+        WhenDangerChanges();
     }
 
     public enum DangerSource
@@ -47,8 +49,9 @@ public class GameModifiers : MonoBehaviour
     {
         if (IsMaxDangerLevel())
         {
+            _maxDangerSuccessCount++;
             DecreaseDanger(MaxDanger - DangerAfterMaxQteSuccess);
-            UpdateDangerView();
+            WhenDangerChanges();
         }
         else
         {
@@ -56,7 +59,7 @@ public class GameModifiers : MonoBehaviour
             if (_qteSuccessCombo >= MaxComboToDecreaseDanger)
             {
                 DecreaseDanger(ComboToDecreaseDangerCount);
-                UpdateDangerView();
+                WhenDangerChanges();
                 
             }
         }
@@ -98,7 +101,7 @@ public class GameModifiers : MonoBehaviour
         
         _invulnerable = InvulnerabilityDuration;
         
-        UpdateDangerView();
+        WhenDangerChanges();
     }
 
     public void ForceDisableInvulnerability()
@@ -106,9 +109,9 @@ public class GameModifiers : MonoBehaviour
         _invulnerable = 0;
     }
 
-    private void UpdateDangerView()
+    private void WhenDangerChanges()
     {
-        Time.timeScale = 1F + (_danger / (MaxDanger * 1F)) * 0.5F;
+        Time.timeScale = 1F + (_danger / (MaxDanger * 1F)) * 0.5F + _maxDangerSuccessCount * 0.1F;
         dangerMeter.text = "Danger: " + _danger;
         GameObject.Find("UIUpdater").GetComponent<UIUpdater>().UpdateDanger(_danger);
     }
