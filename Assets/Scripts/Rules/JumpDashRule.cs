@@ -55,7 +55,7 @@ public class JumpDashRule : MonoBehaviour
     {
         if (isActiveAndEnabled && IsGrounded() && _dashAndCrouchDebounce <= 0)
         {
-            _animator.SetBool("isDashing", true);
+            _animator.SetBool("isCrouching", true);
             player.GetComponent<BoxCollider>().center = new Vector3(0.009640098f, -0.3015763f, 0);
             player.GetComponent<BoxCollider>().size = new Vector3(0.4023044f, 0.3389367f, 1);
             StartCoroutine(EndOfDash(0.8f));
@@ -67,6 +67,7 @@ public class JumpDashRule : MonoBehaviour
     {
         if (isActiveAndEnabled && IsGrounded() && _dashAndCrouchDebounce <= 0)
         {
+            _animator.SetBool("isDashing", true);
             AudioManager.instance.Dash();
             StartCoroutine(EndOfDash(0.8f));
             _dashAndCrouchDebounce = DebounceDuration;
@@ -79,6 +80,7 @@ public class JumpDashRule : MonoBehaviour
         // suspend execution for 2 seconds
         yield return new WaitForSeconds(waitTime);
         _animator.SetBool("isDashing", false);
+        _animator.SetBool("isCrouching", false);
         player.GetComponent<BoxCollider>().center = _initialColliderCenter;
         player.GetComponent<BoxCollider>().size = _initialColliderSize;
     }
