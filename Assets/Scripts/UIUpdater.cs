@@ -53,7 +53,6 @@ public class UIUpdater : MonoBehaviour
 
         _bountyToGo += value;
         _incrementSteps += (int) Mathf.Round(value / 100);
-        Debug.Log(_totalBounty);
     }
 
     public void UpdateDanger(int dangerValue)

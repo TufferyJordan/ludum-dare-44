@@ -10,7 +10,7 @@ public class QteRule : MonoBehaviour
     private QteAction _promptFor;
     private QteAction? _actionThisTick;
 
-    public Text qteButtonUI;
+    public GameObject qteButtonImage;
     public Text qteTimeRemainingUI;
     public GameModifiers gameModifiers;
     public CameraController cameraController;
@@ -160,26 +160,27 @@ public class QteRule : MonoBehaviour
 
     private void ShowPrompt()
     {
+        qteButtonImage.SetActive(true);
         switch (_promptFor)
         {
             case QteAction.UP:
-                qteButtonUI.text = "↑";
+                qteButtonImage.GetComponent<Image>().sprite = Resources.Load<Sprite>("QTE/QTE_Released_U");
                 break;
             case QteAction.DOWN:
-                qteButtonUI.text = "↓";
+                qteButtonImage.GetComponent<Image>().sprite = Resources.Load<Sprite>("QTE/QTE_Released_D");
                 break;
             case QteAction.LEFT:
-                qteButtonUI.text = "←";
+                qteButtonImage.GetComponent<Image>().sprite = Resources.Load<Sprite>("QTE/QTE_Released_L");
                 break;
             case QteAction.RIGHT:
-                qteButtonUI.text = "→";
+                qteButtonImage.GetComponent<Image>().sprite = Resources.Load<Sprite>("QTE/QTE_Released_R");
                 break;
         }
     }
 
     private void HidePrompt()
     {
-        qteButtonUI.text = "";
+        qteButtonImage.SetActive(false);
         qteTimeRemainingUI.text = "";
     }
 
