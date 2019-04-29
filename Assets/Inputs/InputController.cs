@@ -19,8 +19,8 @@ public class InputController : MonoBehaviour
         controls.PlayerControls.DashForward.performed += context => jumpDashRule.DashForward();
         controls.PlayerControls.Exit.performed += context =>
         {
-            AudioManager.instance.StopAll();
             SceneManager.LoadScene(0);
+            AudioManager.instance.StopAll();
         };
         controls.PlayerControls.Crouch.performed += context => jumpDashRule.Crouch();
 

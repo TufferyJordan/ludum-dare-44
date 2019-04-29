@@ -130,4 +130,9 @@ public class AudioManager : MonoBehaviour
     {
         StartRunning();
     }
+
+    public void StartIntro()
+    {
+        Play("Intro");
+    }
 }

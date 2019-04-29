@@ -6,14 +6,20 @@ using UnityEngine.SceneManagement;
 public class StartScript : MonoBehaviour
 {
 
+    void Start()
+    {
+        AudioManager.instance.StartIntro();
+    }
+
     public void OnStartClick()
     {
+        AudioManager.instance.StopAll();
         SceneManager.LoadScene(1);
     }
 
     public void OnCreditsClick()
     {
-        // TODO: Credits Click
+        SceneManager.LoadScene(2);
     }
 
     public void OnExitClick()
