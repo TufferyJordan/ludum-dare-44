@@ -39,9 +39,44 @@ public class ObstacleProp : MonoBehaviour
         _rigidbody.AddForce(new Vector3(4, 1, 1) * _rigidbody.mass * 100);
         _rigidbody.AddTorque(new Vector3(RandomValue(), RandomValue(), RandomValue()) * _rigidbody.mass);
 
-        if (player.CompareTag("Player"))
+        GenerateSoundEffect(player);
+    }
+
+    private void GenerateSoundEffect(Collider player)
+    {
+        PropType type = gameObject.GetComponent<PropType>();
+        if (type.type == PropType.TYPE_FENCE)
         {
-            AudioManager.instance.HitMetal();
+            if (player.CompareTag("Player"))
+            {
+                AudioManager.instance.PlayerHitWood();
+            }
+            else
+            {
+                AudioManager.instance.HitWood();
+            }
+        } 
+        else if (type.type == PropType.TYPE_TRASH)
+        {
+            if (player.CompareTag("Player"))
+            {
+                AudioManager.instance.PlayerHitGarbage();
+            }
+            else
+            {
+                AudioManager.instance.HitGarbage();
+            }
+        }
+        else if (type.type == PropType.TYPE_BIG_TRASH)
+        {
+            if (player.CompareTag("Player"))
+            {
+                AudioManager.instance.PlayerHitMetal();
+            }
+            else
+            {
+                AudioManager.instance.HitMetal();
+            }
         }
     }
 
