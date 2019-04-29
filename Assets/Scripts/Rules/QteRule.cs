@@ -8,7 +8,6 @@ using Random = UnityEngine.Random;
 public class QteRule : MonoBehaviour
 {
     private QteAction _promptFor;
-    private int _qteRemaining;
     private QteAction? _actionThisTick;
 
     public Text qteButtonUI;
@@ -17,6 +16,9 @@ public class QteRule : MonoBehaviour
     
     private float _timeRemainingForCurrentPrompt;
     private float _qteDuration;
+    
+    private int _qteMandatoryCount;
+    private int _qtePerformed;
 
     public enum QteAction
     {
@@ -65,8 +67,8 @@ public class QteRule : MonoBehaviour
 
     private void PromptSuccessful()
     {
-        _qteRemaining--;
-        if (_qteRemaining <= 0)
+        _qtePerformed++;
+        if (_qtePerformed >= _qteMandatoryCount)
         {
             End();
             gameModifiers.SuccessfulQte();
@@ -116,12 +118,12 @@ public class QteRule : MonoBehaviour
         enabled = true;
         if (gameModifiers.IsMaxDangerLevel())
         {
-            _qteRemaining = 10;
+            _qteMandatoryCount = 10;
             _qteDuration = 1F;
         }
         else
         {
-            _qteRemaining = 2 + Random.Range(0, 5);
+            _qteMandatoryCount = 2 + Random.Range(0, 5);
             _qteDuration = 1F;
         }
         
