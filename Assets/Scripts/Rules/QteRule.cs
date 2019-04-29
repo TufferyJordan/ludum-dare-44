@@ -183,10 +183,19 @@ public class QteRule : MonoBehaviour
         qteTimeRemainingUI.text = "";
     }
 
-    private static QteAction NextPrompt()
+    private QteAction NextPrompt()
     {
         var actions = Enum.GetValues(typeof(QteAction));
-        return (QteAction)actions.GetValue((int) Math.Floor((double)Random.Range(0, actions.Length)));
+        var selectedAction = (QteAction)actions.GetValue((int) Math.Floor((double)Random.Range(0, actions.Length)));
+
+        if (selectedAction == _promptFor && Random.Range(0, 4) != 0)
+        {
+            return NextPrompt();
+        }
+        else
+        {
+            return selectedAction;
+        }
     }
 
     public bool IsQteRunning() {
