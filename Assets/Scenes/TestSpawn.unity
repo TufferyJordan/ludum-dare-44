@@ -1999,6 +1999,10 @@ MonoBehaviour:
   notification: {fileID: 1191587282}
   bountyText: {fileID: 459738418}
   dangerBar: {fileID: 445185817}
+  dangerZone1: {r: 0, g: 1, b: 0, a: 1}
+  dangerZone2: {r: 1, g: 1, b: 0, a: 1}
+  dangerZone3: {r: 1, g: 0.60768837, b: 0, a: 1}
+  dangerZone4: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &1448646323
 GameObject:
   m_ObjectHideFlags: 0
