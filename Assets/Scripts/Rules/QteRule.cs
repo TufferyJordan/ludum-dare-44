@@ -45,7 +45,7 @@ public class QteRule : MonoBehaviour
             else
             {
                 AudioManager.instance.FailRobbing();
-                PromptFailure();
+                Failure(GameModifiers.DangerSource.QTE_EXCEEDED_TIME_LIMIT);
             }
 
             _actionThisTick = null;
@@ -60,7 +60,7 @@ public class QteRule : MonoBehaviour
             else
             {
                 AudioManager.instance.FailRobbing();
-                TimeLimitFailure();
+                Failure(GameModifiers.DangerSource.QTE_EXCEEDED_TIME_LIMIT);
             }
         }
     }
@@ -68,28 +68,26 @@ public class QteRule : MonoBehaviour
     private void PromptSuccessful()
     {
         _qtePerformed++;
-        if (_qtePerformed >= _qteMandatoryCount)
-        {
-            End();
-            gameModifiers.SuccessfulQte();
-            ShowBountyNotification();
+        GeneratePrompt();
+    }
+
+    private void Failure(GameModifiers.DangerSource dangerSource)
+    {
+        if (IsQteConsideredHarmful()) {
+            gameModifiers.TakeDamage(dangerSource);
+            
         }
         else
         {
-            GeneratePrompt();
+            var bonusQteCount = _qtePerformed - _qteMandatoryCount;
+            gameModifiers.SuccessfulQte(bonusQteCount);
         }
-    }
-
-    private void TimeLimitFailure()
-    {
-        gameModifiers.TakeDamage(GameModifiers.DangerSource.QTE_EXCEEDED_TIME_LIMIT);
         End();
     }
 
-    private void PromptFailure()
+    private bool IsQteConsideredHarmful()
     {
-        gameModifiers.TakeDamage(GameModifiers.DangerSource.QTE_INPUTTED_IN_ERROR);
-        End();
+        return _qtePerformed < _qteMandatoryCount;
     }
 
     public void Input(QteAction action)
@@ -116,6 +114,7 @@ public class QteRule : MonoBehaviour
         }
 
         enabled = true;
+        _qtePerformed = 0;
         if (gameModifiers.IsMaxDangerLevel())
         {
             _qteMandatoryCount = 10;
@@ -134,8 +133,27 @@ public class QteRule : MonoBehaviour
     private void GeneratePrompt()
     {
         _promptFor = NextPrompt();
-        _timeRemainingForCurrentPrompt = _qteDuration;
+        if (IsQteConsideredHarmful()) {
+            _timeRemainingForCurrentPrompt = _qteDuration;
+        }
+        else
+        {
+            _timeRemainingForCurrentPrompt = _qteDuration * CalculateBonusTimeFactor();
+        }
         ShowPrompt();
+    }
+
+    private float CalculateBonusTimeFactor()
+    {
+        var linear = 1 + _qtePerformed - _qteMandatoryCount;
+        if (linear < 10)
+        {
+            return 1F - linear * 0.1F;
+        }
+        else
+        {
+            return 0.1F / (2F * (linear - 10F));
+        }
     }
 
     private void ShowPrompt()
@@ -178,6 +196,4 @@ public class QteRule : MonoBehaviour
         var bountyup = Random.Range(1000, 10000);
         GameObject.Find("UIUpdater").GetComponent<UIUpdater>().UpBounty(bountyup);
     }
-
-
 }

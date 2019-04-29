@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -42,7 +43,7 @@ public class GameModifiers : MonoBehaviour
         return _danger == MaxDanger;
     }
 
-    public void SuccessfulQte()
+    public void SuccessfulQte(int bonusQteCount)
     {
         if (IsMaxDangerLevel())
         {
@@ -59,6 +60,13 @@ public class GameModifiers : MonoBehaviour
                 
             }
         }
+
+        var bountyOnInverseDangerLevel = (int)Math.Floor((1F - _danger / (MaxDanger * 1F)) * 100);
+        var bountyOnQte = bonusQteCount * 100 + bonusQteCount;
+        
+        var bounty = 300 + bountyOnQte + bountyOnInverseDangerLevel;
+        
+        GameObject.Find("UIUpdater").GetComponent<UIUpdater>().UpBounty(bounty);
     }
 
     private void DecreaseDanger(int amount)
