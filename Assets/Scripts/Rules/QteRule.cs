@@ -10,7 +10,6 @@ public class QteRule : MonoBehaviour
 
     public GameObject qteButtonImage;
     public GameObject qteProgress;
-    public Text qteTimeRemainingUI;
     public GameModifiers gameModifiers;
     public CameraController cameraController;
     public GameOverController gameOverController;
@@ -63,7 +62,7 @@ public class QteRule : MonoBehaviour
             _timeRemainingForCurrentPrompt -= Time.deltaTime;
             if (_timeRemainingForCurrentPrompt > 0)
             {
-                qteTimeRemainingUI.text = new String('.', 1 + (int)Math.Floor(_timeRemainingForCurrentPrompt * 50));
+                qteProgress.GetComponent<Image>().fillAmount = _timeRemainingForCurrentPrompt / _qteDuration;
             }
             else
             {
@@ -184,6 +183,8 @@ public class QteRule : MonoBehaviour
     private void ShowPrompt()
     {
         qteButtonImage.SetActive(true);
+        qteProgress.SetActive(true);
+        qteProgress.GetComponent<Image>().fillAmount = 1;
         switch (_promptFor)
         {
             case QteAction.UP:
@@ -204,7 +205,7 @@ public class QteRule : MonoBehaviour
     private void HidePrompt()
     {
         qteButtonImage.SetActive(false);
-        qteTimeRemainingUI.text = "";
+        qteProgress.SetActive(false);
     }
 
     private QteAction NextPrompt()
