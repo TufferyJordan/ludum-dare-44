@@ -51,6 +51,17 @@ public class Controls : IInputActionCollection
                     ""processors"": """",
                     ""interactions"": """",
                     ""bindings"": []
+                },
+                {
+                    ""name"": ""Crouch"",
+                    ""id"": ""6a579445-748e-4c64-86af-8d0d0a382b18"",
+                    ""expectedControlLayout"": """",
+                    ""continuous"": false,
+                    ""passThrough"": false,
+                    ""initialStateCheck"": false,
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""bindings"": []
                 }
             ],
             ""bindings"": [
@@ -80,8 +91,56 @@ public class Controls : IInputActionCollection
                 },
                 {
                     ""name"": """",
+                    ""id"": ""5d644fe4-287f-475f-9e71-3d940a0db68a"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false,
+                    ""modifiers"": """"
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4fbd758f-272b-4a75-a8a7-084e319b6634"",
+                    ""path"": ""<XInputController>/dpad/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false,
+                    ""modifiers"": """"
+                },
+                {
+                    ""name"": """",
                     ""id"": ""ecb3dd2b-ee60-4d6e-8a63-9b4e23f66092"",
                     ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DashForward"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false,
+                    ""modifiers"": """"
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a52b40bf-b8d9-460e-a157-6a693636c2ee"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DashForward"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false,
+                    ""modifiers"": """"
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""763214a3-2b4b-4617-bb5c-dcfd7034aee7"",
+                    ""path"": ""<XInputController>/dpad/right"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -98,6 +157,54 @@ public class Controls : IInputActionCollection
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Exit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false,
+                    ""modifiers"": """"
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""07ae7d30-ef6a-4015-bd34-0a353e8225f8"",
+                    ""path"": ""<XInputController>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Exit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false,
+                    ""modifiers"": """"
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0487b92d-4718-4fc3-b259-608784125acd"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Crouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false,
+                    ""modifiers"": """"
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8c974a4b-5440-4986-8588-a15b8a23a1a3"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Crouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false,
+                    ""modifiers"": """"
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fcdaea60-c8d4-43ed-8dbd-f462527c9d49"",
+                    ""path"": ""<XInputController>/dpad/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Crouch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false,
                     ""modifiers"": """"
@@ -236,6 +343,7 @@ public class Controls : IInputActionCollection
         m_PlayerControls_Jump = m_PlayerControls.GetAction("Jump");
         m_PlayerControls_DashForward = m_PlayerControls.GetAction("DashForward");
         m_PlayerControls_Exit = m_PlayerControls.GetAction("Exit");
+        m_PlayerControls_Crouch = m_PlayerControls.GetAction("Crouch");
         // QteControls
         m_QteControls = asset.GetActionMap("QteControls");
         m_QteControls_Up = m_QteControls.GetAction("Up");
@@ -287,6 +395,7 @@ public class Controls : IInputActionCollection
     private InputAction m_PlayerControls_Jump;
     private InputAction m_PlayerControls_DashForward;
     private InputAction m_PlayerControls_Exit;
+    private InputAction m_PlayerControls_Crouch;
     public struct PlayerControlsActions
     {
         private Controls m_Wrapper;
@@ -294,6 +403,7 @@ public class Controls : IInputActionCollection
         public InputAction @Jump { get { return m_Wrapper.m_PlayerControls_Jump; } }
         public InputAction @DashForward { get { return m_Wrapper.m_PlayerControls_DashForward; } }
         public InputAction @Exit { get { return m_Wrapper.m_PlayerControls_Exit; } }
+        public InputAction @Crouch { get { return m_Wrapper.m_PlayerControls_Crouch; } }
         public InputActionMap Get() { return m_Wrapper.m_PlayerControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -313,6 +423,9 @@ public class Controls : IInputActionCollection
                 Exit.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnExit;
                 Exit.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnExit;
                 Exit.cancelled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnExit;
+                Crouch.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnCrouch;
+                Crouch.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnCrouch;
+                Crouch.cancelled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnCrouch;
             }
             m_Wrapper.m_PlayerControlsActionsCallbackInterface = instance;
             if (instance != null)
@@ -326,6 +439,9 @@ public class Controls : IInputActionCollection
                 Exit.started += instance.OnExit;
                 Exit.performed += instance.OnExit;
                 Exit.cancelled += instance.OnExit;
+                Crouch.started += instance.OnCrouch;
+                Crouch.performed += instance.OnCrouch;
+                Crouch.cancelled += instance.OnCrouch;
             }
         }
     }
@@ -404,6 +520,7 @@ public class Controls : IInputActionCollection
         void OnJump(InputAction.CallbackContext context);
         void OnDashForward(InputAction.CallbackContext context);
         void OnExit(InputAction.CallbackContext context);
+        void OnCrouch(InputAction.CallbackContext context);
     }
     public interface IQteControlsActions
     {

@@ -22,6 +22,7 @@ public class InputController : MonoBehaviour
             AudioManager.instance.StopAll();
             SceneManager.LoadScene(0);
         };
+        controls.PlayerControls.Crouch.performed += context => jumpDashRule.Crouch();
 
         controls.QteControls.Up.performed += context => qteRule.Input(QteRule.QteAction.UP);
         controls.QteControls.Down.performed += context => qteRule.Input(QteRule.QteAction.DOWN);

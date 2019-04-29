@@ -13,7 +13,7 @@ public class JumpDashRule : MonoBehaviour
     private float _distanceToGround;
     private float _lastYPosition;
     private float _jumpDebounce;
-    private float _dashDebounce;
+    private float _dashAndCrouchDebounce;
     private Rigidbody _playerRigidBody;
     private Animator _animator;
     private Vector3 _initialColliderCenter;
@@ -23,7 +23,7 @@ public class JumpDashRule : MonoBehaviour
     void Awake()
     {
         _jumpDebounce = 0;
-        _dashDebounce = 0;
+        _dashAndCrouchDebounce = 0;
         _distanceToGround = player.transform.GetComponent<Collider>().bounds.extents.y;
         _playerRigidBody = player.transform.gameObject.GetComponent<Rigidbody>();
         _animator = GameObject.Find("Character").GetComponent<Animator>();
@@ -36,7 +36,7 @@ public class JumpDashRule : MonoBehaviour
     {
         EndOfJump();
         _jumpDebounce -= Time.deltaTime;
-        _dashDebounce -= Time.deltaTime;
+        _dashAndCrouchDebounce -= Time.deltaTime;
     }
 
 
@@ -51,18 +51,25 @@ public class JumpDashRule : MonoBehaviour
         }
     }
 
-    public void DashForward()
+    public void Crouch()
     {
-        if (isActiveAndEnabled && IsGrounded() && _dashDebounce <= 0)
+        if (isActiveAndEnabled && IsGrounded() && _dashAndCrouchDebounce <= 0)
         {
-
-            AudioManager.instance.Dash();
             _animator.SetBool("isDashing", true);
-            //Adapts collider for dashing animation
             player.GetComponent<BoxCollider>().center = new Vector3(0.009640098f, -0.3015763f, 0);
             player.GetComponent<BoxCollider>().size = new Vector3(0.4023044f, 0.3389367f, 1);
             StartCoroutine(EndOfDash(0.8f));
-            _dashDebounce = DebounceDuration;
+            _dashAndCrouchDebounce = DebounceDuration;
+        }
+    }
+
+    public void DashForward()
+    {
+        if (isActiveAndEnabled && IsGrounded() && _dashAndCrouchDebounce <= 0)
+        {
+            AudioManager.instance.Dash();
+            StartCoroutine(EndOfDash(0.8f));
+            _dashAndCrouchDebounce = DebounceDuration;
             _playerRigidBody.AddForce(Vector3.right * dashForce);
         }
     }
