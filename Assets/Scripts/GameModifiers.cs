@@ -9,6 +9,7 @@ public class GameModifiers : MonoBehaviour
     private const int DangerAfterMaxQteSuccess = 6;
     private const int MaxComboToDecreaseDanger = 3;
     private const int ComboToDecreaseDangerCount = 3;
+    private const float InvulnerabilityDuration = 1f;
 
     public Text dangerMeter;
 
@@ -87,7 +88,7 @@ public class GameModifiers : MonoBehaviour
             _danger = MaxDanger;
         }
         
-        _invulnerable = 1.5f;
+        _invulnerable = InvulnerabilityDuration;
         
         UpdateDangerView();
     }
