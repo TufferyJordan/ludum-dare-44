@@ -183,6 +183,13 @@ public class QteRule : MonoBehaviour
 
     private void ShowPrompt()
     {
+        if (IsQteConsideredHarmful()) {
+            qteProgress.GetComponent<Image>().color = Color.red;
+        }
+        else
+        {
+            qteProgress.GetComponent<Image>().color = Color.green;
+        }
         qteButtonImage.SetActive(true);
         qteProgress.SetActive(true);
         qteProgress.GetComponent<Image>().fillAmount = _timeRemainingForCurrentPrompt / _qteDuration;

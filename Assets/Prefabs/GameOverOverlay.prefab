@@ -258,7 +258,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55346298082ea4151bd6ea25488942b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rRule: {fileID: 0}
+  isGameOver: 0
 --- !u!1 &5068373100663354452
 GameObject:
   m_ObjectHideFlags: 0
@@ -337,7 +337,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Oh ! You finally have been caught...
+  m_Text: 'Oh ! You finally got caught...
 
     I hope all those crimes were worth it.'
 --- !u!1 &7192332957004436824
