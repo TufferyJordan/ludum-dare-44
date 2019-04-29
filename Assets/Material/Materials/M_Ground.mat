@@ -7,9 +7,9 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Brick
+  m_Name: M_Ground
   m_Shader: {fileID: 4800000, guid: 0e9d5a909a1f7e84882a534d0d11e49f, type: 3}
-  m_ShaderKeywords: _METALLICGLOSSMAP _NORMALMAP _PARALLAXMAP
+  m_ShaderKeywords: _METALLICGLOSSMAP _NORMALMAP _PARALLAXMAP _SPECGLOSSMAP
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -20,7 +20,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: 63964c6f92dbc344899c89011dbd2bb7, type: 3}
+        m_Texture: {fileID: 2800000, guid: 82a87303d44d71647aed77e98a0c3d21, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -37,26 +37,26 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
         m_Texture: {fileID: 0}
-        m_Scale: {x: 5, y: 5}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 190232d8482f58e4fa596323e3722f5b, type: 3}
-        m_Scale: {x: 5, y: 5}
+        m_Texture: {fileID: 2800000, guid: e540f413693f843449ac0a99ad8b0ef2, type: 3}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
-        m_Texture: {fileID: 2800000, guid: eb186892d17f57649a0f40621b19e8d8, type: 3}
+        m_Texture: {fileID: 2800000, guid: 0dcbed33359d9034d9743f2ba0bda550, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
-        m_Texture: {fileID: 2800000, guid: bd8d3c88d5e1e814ab92c131338e3efc, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
-        m_Texture: {fileID: 2800000, guid: 3d85753f3b5511f4c87ff5e144dcd983, type: 3}
+        m_Texture: {fileID: 2800000, guid: 3a920b3ade2a3f04d85294b2e41ac2ae, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
-        m_Texture: {fileID: 2800000, guid: 91fcf475a1ef94aa2ac6a7430cbb7fdf, type: 3}
+        m_Texture: {fileID: 2800000, guid: 7232657ccff8a6c4e84a8d4a4467a74e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
@@ -70,11 +70,11 @@ Material:
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
-    - _Parallax: 0.0054
+    - _Parallax: 0.02
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
-    - _UVSec: 1
+    - _UVSec: 0
     - _UseAoMap: 0
     - _UseColorMap: 1
     - _UseEmissiveMap: 0
@@ -86,4 +86,4 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _UvOffset: {r: 0, g: 0, b: 0, a: 0}
-    - _UvTiling: {r: 5, g: 5, b: 0, a: 0}
+    - _UvTiling: {r: 1, g: 1, b: 0, a: 0}
