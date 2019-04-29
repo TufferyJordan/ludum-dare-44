@@ -11,7 +11,7 @@ public class GameModifiers : MonoBehaviour
     private const int MaxComboToDecreaseDanger = 3;
     private const int ComboToDecreaseDangerCount = 3;
     private const float InvulnerabilityDuration = 1f;
-    private const int BountyDifficultyStep = 1000;
+    private const int BountyDifficultyStep = 700;
 
     private int _danger;
     private float _invulnerable;
