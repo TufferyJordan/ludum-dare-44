@@ -11,8 +11,6 @@ public class GamePhaseController : MonoBehaviour
     public RunningRule runningRule;
     public JumpDashRule jumpDash;
     public QteRule qteController;
-
-    public AudioManager audioManager;
     
     private Phase _currentPhase;
 
@@ -26,7 +24,7 @@ public class GamePhaseController : MonoBehaviour
     
     void Start()
     {
-        audioManager.Play("Running");
+        AudioManager.instance.Play("Running");
         _currentPhase = Phase.RUNNING;
         AudioManager.instance.StartRunning();
         runningRule.enabled = true;

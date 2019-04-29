@@ -44,6 +44,7 @@ public class JumpDashRule : MonoBehaviour
     {
         if (isActiveAndEnabled && IsGrounded() && _jumpDebounce <= 0)
         {
+            //AudioManager.instance.StartJump();
             _animator.SetBool("isJumping", true);
             _jumpDebounce = DebounceDuration;
             _playerRigidBody.AddForce(Vector3.up * jumpForce);
@@ -52,9 +53,10 @@ public class JumpDashRule : MonoBehaviour
 
     public void DashForward()
     {
-        AudioManager.instance.Dash();
         if (isActiveAndEnabled && IsGrounded() && _dashDebounce <= 0)
         {
+
+            AudioManager.instance.Dash();
             _animator.SetBool("isDashing", true);
             //Adapts collider for dashing animation
             player.GetComponent<BoxCollider>().center = new Vector3(0.009640098f, -0.3015763f, 0);
@@ -76,9 +78,11 @@ public class JumpDashRule : MonoBehaviour
 
     public void EndOfJump()
     {
-        if(_lastYPosition >= player.transform.position.y) {
-            if(IsGrounded())
+        if(_lastYPosition >= player.transform.position.y)
+        {
+            if (IsGrounded())
             {
+                AudioManager.instance.StopJump();
                 _animator.SetBool("isJumping", false);
             }
         }
