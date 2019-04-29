@@ -13,6 +13,7 @@ public class QteRule : MonoBehaviour
     public Text qteButtonUI;
     public Text qteTimeRemainingUI;
     public GameModifiers gameModifiers;
+    public CameraController cameraController;
     
     private float _timeRemainingForCurrentPrompt;
     private float _qteDuration;
@@ -68,6 +69,7 @@ public class QteRule : MonoBehaviour
     private void PromptSuccessful()
     {
         _qtePerformed++;
+        cameraController.Nudge();
         GeneratePrompt();
     }
 

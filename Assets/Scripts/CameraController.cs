@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    private const float NudgeDuration = 0.2F;
     public GameObject player;
     public SpawnerPlatform spawnerPlatform;
     public GamePhaseController gamePhaseController;
@@ -14,10 +15,13 @@ public class CameraController : MonoBehaviour
     private float initialPlayerYpos;
     private Quaternion cameraQteRotation;
     private Quaternion cameraRotation;
-    float rotationVelocity = 0;
-    
+    private float rotationVelocity = 0;
+    private Vector3 _nudgeVector;
+    private double _nudgeRemaining;
+
     void Start()
     {
+        _nudgeRemaining = 0;
         cameraVelocity = new Vector3();
         initialPlayerYpos = player.transform.position.y;
         var relativePosition = transform.position - player.transform.position;
@@ -26,10 +30,28 @@ public class CameraController : MonoBehaviour
         transform.position = CameraPositionOnPlayer();
     }
 
+    public void Nudge()
+    {
+        _nudgeRemaining = NudgeDuration;
+        _nudgeVector = new Vector3(RandomValue(), RandomValue(), RandomValue()).normalized * 0.05F;
+    }
+
+    private float RandomValue()
+    {
+        return Random.Range(-100, 100);
+    }
+
     void FixedUpdate()
     {
-        transform.position = MutateSmoothPosition();
+        var nudgeFactor = (float)(_nudgeRemaining / NudgeDuration);
+        transform.position = MutateSmoothPosition() + _nudgeVector * nudgeFactor;
         MutateSmoothRotation();
+        
+        _nudgeRemaining -= Time.fixedDeltaTime;
+        if (_nudgeRemaining < 0)
+        {
+            _nudgeRemaining = 0;
+        }
     }
 
     private Vector3 MutateSmoothPosition()
