@@ -19,6 +19,7 @@ public class SpawnerPlatform : MonoBehaviour
     public Object basicBase;
     public Object obstacleBase;
     public Object buildingBase;
+    public GameObject spotlightTemplate;
     
     private Object[][] platforms;
     private Object[] bases;
@@ -56,6 +57,24 @@ public class SpawnerPlatform : MonoBehaviour
         var newBase = Instantiate(selectedBase, new Vector3(location * PlatformLength, 0, 0), Quaternion.identity) as GameObject;
         newPlatform.transform.SetParent(newBase.transform);
         newBase.transform.SetParent(this.transform);
+
+        foreach (Transform pplatform in newPlatform.transform)
+        {
+            foreach (Transform item in pplatform)
+            {
+                if ("SM_Light".Equals(item.name))
+                {
+                    var spotlight = Instantiate(
+                        spotlightTemplate,
+                        item.position + new Vector3(0, 4, -0.5F),
+                        Quaternion.identity
+                    ) as GameObject;
+                    spotlight.transform.SetParent(newPlatform.transform);
+                    spotlight.SetActive(true);
+                }
+            }
+        }
+
         _nextSpawnLocation++;
     }
 
