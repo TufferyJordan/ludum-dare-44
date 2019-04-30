@@ -9,10 +9,7 @@ public class UIUpdater : MonoBehaviour
     public GameObject bountyText;
     public GameObject dangerBar;
 
-    public Color dangerZone1;
-    public Color dangerZone2;
-    public Color dangerZone3;
-    public Color dangerZone4;
+    public Color[] dangerZone;
 
     private int _totalBounty;
     private int _bountyToGo;
@@ -23,7 +20,7 @@ public class UIUpdater : MonoBehaviour
     {
         _totalBounty = 0;
         bountyText.GetComponent<Text>().text = _totalBounty.ToString();
-        dangerBar.GetComponent<Image>().color = dangerZone1;
+        dangerBar.GetComponent<Image>().color = dangerZone[0];
     }
 
     // Update is called once per frame
@@ -62,21 +59,12 @@ public class UIUpdater : MonoBehaviour
 
     public void UpdateDanger(int dangerValue)
     {
-        if (dangerValue <= 3)
+        for(int i=0;i<11;i++)
         {
-            dangerBar.GetComponent<Image>().color = dangerZone1;
-        }
-        else if (dangerValue <= 6)
-        {
-            dangerBar.GetComponent<Image>().color = dangerZone2;
-        }
-        else if (dangerValue <= 9)
-        {
-            dangerBar.GetComponent<Image>().color = dangerZone3;
-        }
-        else
-        {
-            dangerBar.GetComponent<Image>().color = dangerZone4;
+            if (dangerValue == i)
+            {
+                dangerBar.GetComponent<Image>().color = dangerZone[i];
+            }
         }
     }
 }
